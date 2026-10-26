@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content="Dhikr : horaires de prière, Qibla, invocations et rappels. Gratuit, sans compte, sans publicité, fonctionne hors ligne." />
+    <meta name="description" content="Dhikr : horaires de prière, Qibla, invocations, tasbih, calendrier hégirien et rappels avec adhan. Gratuit, sans compte, sans publicité, fonctionne hors ligne." />
     <meta name="theme-color" content="#071a2f" />
     <title>Dhikr — Horaires de prière et rappels</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23071a2f'/%3E%3Cpath d='M40 14a19 19 0 1 0 10 34A16 16 0 1 1 40 14z' fill='%23f3d58a'/%3E%3C/svg%3E" />
@@ -19,11 +19,11 @@
       body { margin: 0; min-height: 100vh; background: var(--night); color: var(--ivory); font: 16px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, sans-serif; overflow-x: hidden; }
       [dir="rtl"] body { font-family: "Geeza Pro", "Noto Naskh Arabic", Tahoma, -apple-system, sans-serif; font-size: 17px; }
       a { color: var(--gold); font-weight: 650; }
-      button { font: inherit; color: inherit; }
+      button, select { font: inherit; color: inherit; }
+      :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
       .wrap { width: min(100% - 2rem, 1100px); margin: 0 auto; }
       .ar-text { font-family: "Geeza Pro", "Noto Naskh Arabic", "Traditional Arabic", Tahoma, serif; direction: rtl; }
 
-      /* Ciel étoilé */
       #sky { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
       header, main, footer { position: relative; z-index: 1; }
 
@@ -33,7 +33,7 @@
       .bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .75rem 0; }
       .brand { display: flex; align-items: center; gap: .6rem; color: var(--ivory); text-decoration: none; font-weight: 750; font-size: 1.15rem; }
       .brand svg { width: 34px; height: 34px; flex: none; filter: drop-shadow(0 0 10px var(--glow)); }
-      .menu { display: flex; gap: 1.6rem; }
+      .menu { display: flex; gap: 1.5rem; }
       .menu a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: .95rem; position: relative; }
       .menu a::after { content: ""; position: absolute; inset-inline: 0; bottom: -4px; height: 2px; background: var(--gold); transform: scaleX(0); transition: transform .25s; }
       .menu a:hover { color: var(--ivory); }
@@ -43,21 +43,20 @@
       .langs button[aria-pressed="true"] { background: var(--gold); color: var(--night); }
 
       /* Hero */
-      .hero { padding: 4rem 0 4.5rem; }
-      .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 3rem; align-items: center; }
+      .hero { padding: 3.5rem 0 4rem; }
+      .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 3rem; align-items: center; }
       .chip { display: inline-flex; align-items: center; gap: .5rem; padding: .3rem .85rem; border: 1px solid var(--line); border-radius: 999px; background: rgba(16, 47, 82, .6); color: var(--gold); font-size: .85rem; font-weight: 650; }
-      .chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 0 var(--glow); animation: pulse 2s infinite; }
+      .chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
       @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(243, 213, 138, .6); } 70% { box-shadow: 0 0 0 10px rgba(243, 213, 138, 0); } 100% { box-shadow: 0 0 0 0 rgba(243, 213, 138, 0); } }
-      h1 { margin: 1rem 0 1.1rem; font-size: clamp(2.4rem, 6.4vw, 4.2rem); line-height: 1.05; letter-spacing: -.02em; text-wrap: balance; }
+      h1 { margin: 1rem 0 1.1rem; font-size: clamp(2.4rem, 6.2vw, 4.1rem); line-height: 1.05; letter-spacing: -.02em; text-wrap: balance; }
       [dir="rtl"] h1 { letter-spacing: 0; line-height: 1.3; }
       h1 .shine { background: linear-gradient(100deg, var(--gold) 0%, #fff3cf 40%, var(--gold-2) 60%, var(--gold) 100%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 6s linear infinite; }
       @keyframes shine { to { background-position: -250% 0; } }
-      .lead { color: var(--muted); font-size: 1.15rem; max-width: 34em; margin: 0; }
-      .cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
-      .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .8rem 1.4rem; border-radius: 999px; font-weight: 700; text-decoration: none; cursor: pointer; border: 1px solid var(--line); transition: transform .2s, box-shadow .2s, background .2s; }
+      .lead { color: var(--muted); font-size: 1.12rem; max-width: 34em; margin: 0; }
+      .cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.8rem; }
+      .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .8rem 1.4rem; border-radius: 999px; font-weight: 700; text-decoration: none; cursor: pointer; border: 1px solid var(--line); transition: transform .2s, box-shadow .2s; }
       .btn:hover { transform: translateY(-2px); }
       .btn.primary { background: linear-gradient(135deg, var(--gold), var(--gold-2)); color: var(--night); border-color: transparent; box-shadow: 0 .6rem 1.6rem rgba(243, 213, 138, .25); }
-      .btn.primary:hover { box-shadow: 0 .9rem 2.2rem rgba(243, 213, 138, .4); }
       .btn.ghost { background: rgba(16, 47, 82, .6); color: var(--ivory); }
       .stores { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.4rem; }
       .store { display: flex; align-items: center; gap: .6rem; padding: .55rem 1rem; border: 1px solid var(--line); border-radius: .85rem; background: rgba(16, 47, 82, .6); color: var(--ivory); min-width: 180px; }
@@ -66,79 +65,138 @@
       [dir="rtl"] .store small { letter-spacing: 0; }
       .store span { font-weight: 700; line-height: 1.3; }
       .note { margin-top: .8rem; color: var(--muted); font-size: .88rem; }
+      .hero-points { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.4rem 0 0; padding: 0; list-style: none; }
+      .hero-points li { padding: .25rem .75rem; border-radius: 999px; background: rgba(243, 213, 138, .1); color: var(--ivory); font-size: .85rem; font-weight: 600; }
 
-      /* Téléphone interactif */
-      .phone-col { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+      /* Téléphone interactif, recoloré par les thèmes de l'app */
+      .phone-col { display: flex; flex-direction: column; align-items: center; gap: 1rem; min-width: 0; }
       .phone-stage { perspective: 1200px; }
-      .phone { position: relative; width: 290px; height: 590px; border-radius: 2.6rem; padding: .7rem; background: linear-gradient(160deg, #0d2949, #02101f); border: 1px solid rgba(243, 213, 138, .35); box-shadow: 0 2.5rem 5rem rgba(0, 0, 0, .55), 0 0 4rem rgba(243, 213, 138, .08); transform-style: preserve-3d; transition: transform .2s ease-out; animation: float 6s ease-in-out infinite; }
+      .phone {
+        --p-bg: #071a2f; --p-bg2: #17406b; --p-surface: rgba(16, 47, 82, .8); --p-fg: #fff7e6; --p-muted: #c9d1d9; --p-accent: #d8b46a; --p-on: #071a2f; --p-line: rgba(216, 180, 106, .22);
+        position: relative; width: 296px; height: 610px; border-radius: 2.6rem; padding: .7rem; background: linear-gradient(160deg, #1b2a3a, #02080f); border: 1px solid rgba(243, 213, 138, .35);
+        box-shadow: 0 2.5rem 5rem rgba(0, 0, 0, .55), 0 0 4rem rgba(243, 213, 138, .08); transform-style: preserve-3d; transition: transform .2s ease-out; animation: float 6s ease-in-out infinite;
+      }
+      .phone[data-theme="light"] { --p-bg: #f7f3ea; --p-bg2: #fffaf0; --p-surface: #ffffff; --p-fg: #1d2430; --p-muted: #5b6472; --p-accent: #7d5a1f; --p-on: #ffffff; --p-line: rgba(125, 90, 31, .2); }
+      .phone[data-theme="emerald"] { --p-bg: #062019; --p-bg2: #0f4434; --p-surface: rgba(16, 70, 54, .75); --p-fg: #f3efe2; --p-muted: #b9cbc3; --p-accent: #d8b46a; --p-on: #062019; --p-line: rgba(216, 180, 106, .22); }
+      .phone[data-theme="sand"] { --p-bg: #f3e9d8; --p-bg2: #fbf4e8; --p-surface: #fffaf1; --p-fg: #2b2118; --p-muted: #6c5d4c; --p-accent: #8a5528; --p-on: #ffffff; --p-line: rgba(138, 85, 40, .2); }
+      .phone[data-theme="black"] { --p-bg: #000000; --p-bg2: #121212; --p-surface: #161616; --p-fg: #f5f5f5; --p-muted: #a3a3a3; --p-accent: #d8b46a; --p-on: #000000; --p-line: rgba(216, 180, 106, .22); }
       @keyframes float { 50% { translate: 0 -10px; } }
-      .notch { position: absolute; top: .95rem; left: 50%; translate: -50% 0; width: 90px; height: 24px; border-radius: 999px; background: #02101f; z-index: 3; }
-      .screen { position: relative; height: 100%; border-radius: 2rem; background: radial-gradient(ellipse 120% 60% at 50% 0%, #17406b, var(--night) 70%); overflow: hidden; display: flex; flex-direction: column; }
-      .scr-top { padding: 2.6rem 1rem .5rem; text-align: center; }
-      .scr-top .city { color: var(--muted); font-size: .72rem; }
-      .scr-top .hijri { color: var(--gold); font-size: .72rem; font-weight: 600; }
+      .notch { position: absolute; top: .95rem; left: 50%; translate: -50% 0; width: 90px; height: 24px; border-radius: 999px; background: #02080f; z-index: 3; }
+      .screen { position: relative; height: 100%; border-radius: 2rem; background: radial-gradient(ellipse 120% 55% at 50% 0%, var(--p-bg2), var(--p-bg) 72%); color: var(--p-fg); overflow: hidden; display: flex; flex-direction: column; transition: background .4s, color .4s; }
       .panes { position: relative; flex: 1; }
-      .pane { position: absolute; inset: 0; padding: .3rem .9rem .8rem; display: flex; flex-direction: column; gap: .4rem; opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .35s, transform .35s; }
+      .pane { position: absolute; inset: 0; padding: 2.7rem .9rem .7rem; display: flex; flex-direction: column; gap: .4rem; opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .35s, transform .35s; overflow: hidden; }
       .pane.active { opacity: 1; transform: none; pointer-events: auto; }
-      .next { text-align: center; margin-bottom: .3rem; }
-      .next .lbl { color: var(--muted); font-size: .72rem; }
-      .next b { display: block; color: var(--gold); font-size: 1.7rem; line-height: 1.15; }
-      .next .cd { font-variant-numeric: tabular-nums; font-size: 1.05rem; font-weight: 700; letter-spacing: .04em; }
-      .prog { height: 4px; border-radius: 4px; background: rgba(255, 255, 255, .08); overflow: hidden; margin: .35rem 1.2rem 0; }
-      .prog i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--gold-2), var(--gold)); border-radius: 4px; transition: width .6s; }
-      .row { display: flex; justify-content: space-between; padding: .42rem .7rem; border-radius: .6rem; background: rgba(16, 47, 82, .75); font-size: .8rem; font-variant-numeric: tabular-nums; transition: background .3s, color .3s, transform .3s; }
-      .row.on { background: var(--gold); color: var(--night); font-weight: 700; transform: scale(1.03); }
+      .p-head { text-align: center; }
+      .p-head .t { font-weight: 800; font-size: .95rem; }
+      .p-head .s { color: var(--p-muted); font-size: .68rem; }
+      .p-card { border-radius: .9rem; background: var(--p-surface); border: 1px solid var(--p-line); padding: .6rem .75rem; }
+      .p-label { color: var(--p-muted); font-size: .66rem; font-weight: 600; }
+      .p-accent { color: var(--p-accent); }
+      .greet { font-size: 1.05rem; font-weight: 800; }
+      .dates { color: var(--p-muted); font-size: .68rem; line-height: 1.4; }
+      .dates b { color: var(--p-accent); font-weight: 700; }
+      .nextcard { text-align: center; background: linear-gradient(160deg, var(--p-accent), color-mix(in srgb, var(--p-accent) 70%, #000)); color: var(--p-on); border: 0; }
+      .nextcard .p-label { color: inherit; opacity: .8; }
+      .nextcard b { display: block; font-size: 1.1rem; line-height: 1.3; }
+      .nextcard .cd { font-variant-numeric: tabular-nums; font-weight: 800; font-size: 1.5rem; line-height: 1.2; direction: ltr; }
+      .prog { height: 4px; border-radius: 4px; background: rgba(0, 0, 0, .18); overflow: hidden; margin-top: .35rem; }
+      .prog i { display: block; height: 100%; width: 0; background: currentColor; border-radius: 4px; transition: width .6s; }
+      .dod { text-align: center; cursor: pointer; transition: transform .15s; }
+      .dod:active { transform: scale(.97); }
+      .dod .ar-text { font-size: 1.25rem; line-height: 1.7; }
+      .dod .tr { color: var(--p-accent); font-size: .7rem; font-weight: 700; }
+      .dod .go { display: inline-block; margin-top: .3rem; padding: .1rem .6rem; border-radius: 999px; background: color-mix(in srgb, var(--p-accent) 18%, transparent); color: var(--p-accent); font-size: .64rem; font-weight: 700; }
+      .shortcuts { display: grid; grid-template-columns: repeat(4, 1fr); gap: .35rem; }
+      .shortcuts button { appearance: none; border: 1px solid var(--p-line); background: var(--p-surface); color: var(--p-fg); border-radius: .7rem; padding: .4rem 0 .3rem; font-size: .58rem; font-weight: 650; display: flex; flex-direction: column; align-items: center; gap: .15rem; cursor: pointer; }
+      .shortcuts svg, .tabs svg, .bell svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+      .shortcuts svg { color: var(--p-accent); }
+
+      .daynav { display: flex; align-items: center; justify-content: space-between; gap: .3rem; }
+      .daynav button { appearance: none; border: 1px solid var(--p-line); background: var(--p-surface); color: var(--p-fg); width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: 800; line-height: 1; }
+      .daynav .d { text-align: center; font-size: .72rem; font-weight: 700; flex: 1; }
+      .daynav .d small { display: block; color: var(--p-muted); font-weight: 500; font-size: .62rem; }
+      .row { display: flex; align-items: center; justify-content: space-between; gap: .4rem; padding: .36rem .55rem .36rem .7rem; border-radius: .6rem; background: var(--p-surface); border: 1px solid var(--p-line); font-size: .78rem; font-variant-numeric: tabular-nums; transition: background .3s, color .3s; }
+      .row .nm { flex: 1; }
+      .row.on { background: var(--p-accent); color: var(--p-on); font-weight: 700; }
       .row.past { opacity: .55; }
-      .tabs { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); background: rgba(2, 16, 31, .7); }
-      .tabs button { appearance: none; border: 0; background: none; padding: .55rem 0 .7rem; color: var(--muted); font-size: .66rem; font-weight: 650; display: flex; flex-direction: column; align-items: center; gap: .15rem; cursor: pointer; }
-      .tabs button svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-      .tabs button[aria-selected="true"] { color: var(--gold); }
+      .bell { appearance: none; border: 0; background: none; color: inherit; padding: 0; width: 22px; height: 22px; display: grid; place-items: center; cursor: pointer; opacity: .9; }
+      .bell svg { width: 15px; height: 15px; }
+      .bell[aria-pressed="false"] { opacity: .35; }
+      .bell[aria-pressed="false"] svg { stroke-dasharray: 2 2; }
+      .row.sun .bell { visibility: hidden; }
+      .p-foot { color: var(--p-muted); font-size: .6rem; text-align: center; margin-top: auto; }
+
+      .tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--p-line); background: color-mix(in srgb, var(--p-bg) 85%, transparent); }
+      .tabs button { appearance: none; border: 0; background: none; padding: .5rem 0 .65rem; color: var(--p-muted); font-size: .62rem; font-weight: 650; display: flex; flex-direction: column; align-items: center; gap: .15rem; cursor: pointer; }
+      .tabs button[aria-selected="true"] { color: var(--p-accent); }
 
       /* Qibla */
-      .compass { position: relative; width: 190px; height: 190px; margin: .4rem auto 0; border-radius: 50%; background: radial-gradient(circle, #143a63 0%, #0b2440 70%); border: 2px solid var(--line); box-shadow: inset 0 0 30px rgba(0, 0, 0, .4), 0 0 30px rgba(243, 213, 138, .08); }
-      .compass .tick { position: absolute; left: 50%; top: 6px; width: 2px; height: 8px; margin-left: -1px; background: rgba(255, 255, 255, .25); transform-origin: 1px 89px; }
-      .compass .tick.major { height: 12px; background: var(--gold); }
-      .compass .card-n { position: absolute; left: 50%; top: 18px; translate: -50% 0; font-size: .75rem; font-weight: 800; color: var(--gold); direction: ltr; }
+      .compass { position: relative; width: 196px; height: 196px; margin: .3rem auto 0; border-radius: 50%; background: radial-gradient(circle, var(--p-surface) 0%, var(--p-bg) 75%); border: 2px solid var(--p-line); box-shadow: inset 0 0 30px rgba(0, 0, 0, .25); }
+      .compass .tick { position: absolute; left: 50%; top: 6px; width: 2px; height: 8px; margin-left: -1px; background: color-mix(in srgb, var(--p-fg) 30%, transparent); transform-origin: 1px 92px; }
+      .compass .tick.major { height: 12px; background: var(--p-accent); }
+      .compass .card-n { position: absolute; left: 50%; top: 18px; translate: -50% 0; font-size: .75rem; font-weight: 800; color: var(--p-accent); direction: ltr; }
       .needle { position: absolute; inset: 0; transition: transform 1.4s cubic-bezier(.2, .8, .2, 1.15); }
-      .needle::before { content: ""; position: absolute; left: 50%; top: 22px; width: 0; height: 0; margin-left: -9px; border: 9px solid transparent; border-bottom: 64px solid var(--gold); border-top: 0; filter: drop-shadow(0 0 8px var(--glow)); }
-      .needle .kaaba { position: absolute; left: 50%; top: 2px; width: 18px; height: 18px; margin-left: -9px; border-radius: 3px; background: #0a0a0a; border-top: 4px solid var(--gold); }
-      .compass .hub { position: absolute; left: 50%; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--gold); }
-      .qibla-deg { text-align: center; font-size: 1.6rem; font-weight: 800; color: var(--gold); margin-top: .6rem; direction: ltr; }
-      .qibla-txt { text-align: center; color: var(--muted); font-size: .72rem; padding: 0 .4rem; }
+      .needle::before { content: ""; position: absolute; left: 50%; top: 24px; margin-left: -9px; border: 9px solid transparent; border-bottom: 74px solid var(--p-accent); border-top: 0; }
+      .needle .kaaba { position: absolute; left: 50%; top: 2px; width: 18px; height: 18px; margin-left: -9px; border-radius: 3px; background: #0a0a0a; border-top: 4px solid #d8b46a; }
+      .compass .hub { position: absolute; left: 50%; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--p-accent); }
+      .qibla-deg { text-align: center; font-size: 1.6rem; font-weight: 800; color: var(--p-accent); margin-top: .5rem; direction: ltr; line-height: 1.2; }
+      .qibla-txt { text-align: center; color: var(--p-muted); font-size: .68rem; padding: 0 .4rem; }
 
       /* Tasbih */
-      .tasbih { display: flex; flex-direction: column; align-items: center; gap: .3rem; text-align: center; }
-      .tasbih .ph-ar { font-size: 1.45rem; color: var(--ivory); line-height: 1.6; min-height: 2.4rem; }
-      .tasbih .ph-tr { font-size: .72rem; color: var(--gold); font-style: italic; }
-      .tasbih .ph-mean { font-size: .7rem; color: var(--muted); min-height: 1.1rem; }
-      .bead { position: relative; width: 150px; height: 150px; border: 0; background: none; padding: 0; cursor: pointer; margin-top: .3rem; -webkit-tap-highlight-color: transparent; }
+      .seg { display: grid; grid-template-columns: 1fr 1fr; gap: .2rem; padding: .2rem; border-radius: 999px; background: var(--p-surface); border: 1px solid var(--p-line); }
+      .seg button { appearance: none; border: 0; background: none; color: var(--p-muted); border-radius: 999px; padding: .2rem 0; font-size: .64rem; font-weight: 700; cursor: pointer; }
+      .seg button[aria-pressed="true"] { background: var(--p-accent); color: var(--p-on); }
+      .tasbih { display: flex; flex-direction: column; align-items: center; gap: .2rem; text-align: center; flex: 1; }
+      .phr { display: flex; align-items: center; gap: .3rem; width: 100%; }
+      .phr button { appearance: none; border: 0; background: none; color: var(--p-accent); font-size: 1.1rem; font-weight: 800; cursor: pointer; width: 22px; }
+      .phr button[hidden] { display: none; }
+      .phr .txt { flex: 1; min-width: 0; }
+      .tasbih .ph-ar { font-size: 1.25rem; line-height: 1.65; min-height: 2.1rem; }
+      .tasbih .ph-ar.long { font-size: .82rem; line-height: 1.7; }
+      .tasbih .ph-tr { font-size: .66rem; color: var(--p-accent); font-style: italic; }
+      .tasbih .ph-mean { font-size: .64rem; color: var(--p-muted); }
+      .tasbih .step { font-size: .64rem; color: var(--p-muted); font-weight: 700; }
+      .bead { position: relative; width: 136px; height: 136px; border: 0; background: none; padding: 0; cursor: pointer; margin-top: .15rem; -webkit-tap-highlight-color: transparent; color: var(--p-fg); }
       .bead svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-      .bead .track { stroke: rgba(255, 255, 255, .08); }
-      .bead .ring { stroke: var(--gold); stroke-linecap: round; transition: stroke-dashoffset .25s; filter: drop-shadow(0 0 6px var(--glow)); }
-      .bead .num { position: absolute; inset: 0; display: grid; place-items: center; font-size: 2.6rem; font-weight: 800; font-variant-numeric: tabular-nums; direction: ltr; }
-      .bead .inner { position: absolute; inset: 18px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #1d4c7e, #0b2440); box-shadow: inset 0 -6px 14px rgba(0, 0, 0, .35); transition: transform .12s; }
+      .bead .track { stroke: color-mix(in srgb, var(--p-fg) 10%, transparent); }
+      .bead .ring { stroke: var(--p-accent); stroke-linecap: round; transition: stroke-dashoffset .25s; }
+      .bead .num { position: absolute; inset: 0; display: grid; place-items: center; font-size: 2.3rem; font-weight: 800; font-variant-numeric: tabular-nums; direction: ltr; }
+      .bead .inner { position: absolute; inset: 17px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--p-accent) 25%, var(--p-surface)), var(--p-surface)); box-shadow: inset 0 -6px 14px rgba(0, 0, 0, .2); transition: transform .12s; }
       .bead:active .inner { transform: scale(.94); }
-      .tasbih .hint { font-size: .68rem; color: var(--muted); }
-      .tasbih .reset { appearance: none; border: 1px solid var(--line); background: none; color: var(--muted); border-radius: 999px; padding: .15rem .8rem; font-size: .7rem; cursor: pointer; }
-      .burst { position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px; border-radius: 50%; background: var(--gold); pointer-events: none; animation: burst .8s ease-out forwards; }
+      .tasbih .meta { display: flex; gap: .6rem; align-items: center; font-size: .62rem; color: var(--p-muted); }
+      .tasbih .reset { appearance: none; border: 1px solid var(--p-line); background: none; color: var(--p-muted); border-radius: 999px; padding: .1rem .7rem; font-size: .64rem; cursor: pointer; }
+      .burst { position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px; border-radius: 50%; background: var(--p-accent); pointer-events: none; animation: burst .8s ease-out forwards; }
       @keyframes burst { to { transform: translate(var(--x), var(--y)) scale(.2); opacity: 0; } }
 
-      .picker { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; align-items: center; }
-      .picker select, .picker button { appearance: none; border: 1px solid var(--line); background: rgba(16, 47, 82, .8); color: var(--ivory); border-radius: 999px; padding: .45rem 1rem; font-size: .88rem; font-weight: 600; cursor: pointer; }
-      .picker select { padding-inline-end: 2rem; background-image: linear-gradient(45deg, transparent 50%, var(--gold) 50%), linear-gradient(135deg, var(--gold) 50%, transparent 50%); background-position: calc(100% - 16px) 55%, calc(100% - 11px) 55%; background-size: 5px 5px; background-repeat: no-repeat; }
-      [dir="rtl"] .picker select { background-position: 16px 55%, 11px 55%; }
-      .picker .small { width: 100%; text-align: center; color: var(--muted); font-size: .78rem; }
+      /* Réglages sous le téléphone */
+      .controls { width: min(100%, 420px); display: grid; gap: .55rem; }
+      .ctl-row { display: flex; flex-wrap: wrap; gap: .45rem; justify-content: center; }
+      .controls select, .controls button.pill { appearance: none; border: 1px solid var(--line); background: rgba(16, 47, 82, .85); color: var(--ivory); border-radius: 999px; padding: .4rem .95rem; font-size: .84rem; font-weight: 600; cursor: pointer; max-width: 100%; }
+      .controls select { padding-inline-end: 2rem; background-image: linear-gradient(45deg, transparent 50%, var(--gold) 50%), linear-gradient(135deg, var(--gold) 50%, transparent 50%); background-position: calc(100% - 16px) 55%, calc(100% - 11px) 55%; background-size: 5px 5px; background-repeat: no-repeat; }
+      [dir="rtl"] .controls select { background-position: 16px 55%, 11px 55%; }
+      .controls select option { background: var(--surface); color: var(--ivory); }
+      .swatches { display: flex; gap: .5rem; justify-content: center; align-items: center; flex-wrap: wrap; }
+      .swatches .lbl { color: var(--muted); font-size: .8rem; }
+      .sw { appearance: none; width: 30px; height: 30px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .25); cursor: pointer; padding: 0; transition: transform .2s; }
+      .sw:hover { transform: scale(1.12); }
+      .sw[aria-pressed="true"] { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(243, 213, 138, .3); }
+      .controls .small { text-align: center; color: var(--muted); font-size: .76rem; }
 
       /* Sections */
-      section.block { padding: 5rem 0; }
-      .head { text-align: center; max-width: 42em; margin: 0 auto 2.6rem; }
+      section.block { padding: 4.5rem 0; }
+      .head { text-align: center; max-width: 44em; margin: 0 auto 2.4rem; }
       .eyebrow { color: var(--gold); font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
       [dir="rtl"] .eyebrow { letter-spacing: 0; font-size: .95rem; }
       h2 { margin: .4rem 0 .5rem; font-size: clamp(1.7rem, 4.4vw, 2.6rem); line-height: 1.15; text-wrap: balance; }
       .sub { color: var(--muted); margin: 0; }
 
+      .numbers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; padding: 1.6rem; border-radius: 1.4rem; border: 1px solid var(--line); background: rgba(16, 47, 82, .45); }
+      .numbers div { text-align: center; }
+      .numbers .n { display: block; font-size: clamp(2rem, 4.5vw, 2.7rem); font-weight: 800; color: var(--gold); line-height: 1.1; font-variant-numeric: tabular-nums; direction: ltr; }
+      .numbers span:not(.n) { color: var(--muted); font-size: .9rem; }
+
       .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
-      .card { position: relative; padding: 1.5rem; border: 1px solid var(--line); border-radius: 1.2rem; background: linear-gradient(180deg, rgba(20, 58, 99, .75), rgba(16, 47, 82, .55)); overflow: hidden; transition: transform .25s, border-color .25s, box-shadow .25s; }
+      .card { position: relative; padding: 1.5rem; border: 1px solid var(--line); border-radius: 1.2rem; background: linear-gradient(180deg, rgba(20, 58, 99, .75), rgba(16, 47, 82, .55)); overflow: hidden; transition: transform .25s, border-color .25s, box-shadow .25s; min-width: 0; }
       .card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, -50%), rgba(243, 213, 138, .14), transparent 60%); opacity: 0; transition: opacity .3s; pointer-events: none; }
       .card:hover { transform: translateY(-4px); border-color: rgba(243, 213, 138, .45); box-shadow: 0 1.2rem 2.5rem rgba(0, 0, 0, .3); }
       .card:hover::before { opacity: 1; }
@@ -147,7 +205,22 @@
       .card .ic svg { width: 24px; height: 24px; stroke: var(--gold); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
       .card h3 { margin: 0 0 .35rem; font-size: 1.1rem; }
       .card p { margin: 0; color: var(--muted); font-size: .95rem; }
-      .card .try { display: inline-block; margin-top: .7rem; font-size: .85rem; cursor: pointer; background: none; border: 0; padding: 0; color: var(--gold); font-weight: 700; }
+      .card ul { margin: .7rem 0 0; padding: 0; list-style: none; display: grid; gap: .3rem; }
+      .card li { position: relative; padding-inline-start: 1.1rem; color: var(--muted); font-size: .9rem; line-height: 1.5; }
+      .card li::before { content: ""; position: absolute; inset-inline-start: 0; top: .55em; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+      .card .try { display: inline-block; margin-top: .8rem; font-size: .85rem; cursor: pointer; background: none; border: 0; padding: 0; color: var(--gold); font-weight: 700; }
+      .card.wide { grid-column: span 2; }
+      .tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .8rem; }
+      .tags span { padding: .15rem .6rem; border-radius: 999px; border: 1px solid var(--line); color: var(--ivory); font-size: .8rem; }
+
+      .events { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+      .event { display: flex; gap: 1rem; align-items: center; padding: 1.1rem 1.2rem; border-radius: 1.1rem; border: 1px solid var(--line); background: rgba(16, 47, 82, .5); min-width: 0; }
+      .event .days { flex: none; width: 68px; height: 68px; border-radius: 1rem; display: grid; place-items: center; align-content: center; background: rgba(243, 213, 138, .12); color: var(--gold); text-align: center; line-height: 1.05; }
+      .event .days b { font-size: 1.5rem; font-variant-numeric: tabular-nums; direction: ltr; }
+      .event .days small { font-size: .66rem; font-weight: 700; }
+      .event h3 { margin: 0; font-size: 1rem; }
+      .event p { margin: .1rem 0 0; color: var(--muted); font-size: .85rem; }
+      .event.next { border-color: rgba(243, 213, 138, .55); background: rgba(20, 58, 99, .75); }
 
       .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem; }
       .stat { text-align: center; padding: 1.8rem 1rem; border-radius: 1.2rem; border: 1px solid var(--line); background: rgba(16, 47, 82, .45); }
@@ -164,48 +237,49 @@
       .faq details[open] summary::after { transform: rotate(45deg); }
       .faq details p { margin: 0; padding: 0 1.3rem 1.1rem; color: var(--muted); }
 
-      .soon { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+      .soon { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem; }
       .soon .card { background: rgba(16, 47, 82, .3); border-style: dashed; }
       .tag { display: inline-block; padding: .1rem .65rem; border-radius: 999px; background: rgba(243, 213, 138, .14); color: var(--gold); font-size: .75rem; font-weight: 700; margin-bottom: .7rem; }
 
       .final { text-align: center; padding: 3.5rem 1.5rem; border-radius: 1.6rem; border: 1px solid var(--line); background: radial-gradient(ellipse 70% 90% at 50% 0%, rgba(243, 213, 138, .16), rgba(16, 47, 82, .5)); }
       .final .cta { justify-content: center; }
+      .final .mail { margin-top: 1rem; color: var(--muted); font-size: .9rem; user-select: all; }
 
       footer { padding: 2.5rem 0 3rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; background: rgba(7, 26, 47, .85); }
       .foot { display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between; align-items: center; }
       .foot nav { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; }
       .credit { width: 100%; font-size: .78rem; opacity: .8; }
 
-      /* Apparition au défilement */
-      .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
-      .reveal.in { opacity: 1; transform: none; }
-      .grid .reveal:nth-child(2), .stats .reveal:nth-child(2) { transition-delay: .08s; }
-      .grid .reveal:nth-child(3), .stats .reveal:nth-child(3) { transition-delay: .16s; }
-      .grid .reveal:nth-child(4), .stats .reveal:nth-child(4) { transition-delay: .24s; }
-      .grid .reveal:nth-child(5) { transition-delay: .32s; }
-      .grid .reveal:nth-child(6) { transition-delay: .4s; }
+      /* Apparition au défilement (le contenu reste lisible si le script ne tourne pas) */
+      .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+      .js .reveal.in { opacity: 1; transform: none; }
 
-      @media (max-width: 900px) {
+      @media (max-width: 960px) {
         .menu { display: none; }
         .hero { padding-top: 2.5rem; }
         .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
-        .grid, .stats { grid-template-columns: 1fr 1fr; }
+        .grid, .events { grid-template-columns: 1fr 1fr; }
+        .card.wide { grid-column: span 2; }
+        .soon, .stats { grid-template-columns: 1fr 1fr; }
+        .numbers { grid-template-columns: repeat(3, 1fr); }
       }
-      @media (max-width: 560px) {
-        .grid, .stats, .soon { grid-template-columns: 1fr; }
-        .stats { grid-template-columns: 1fr 1fr; }
+      @media (max-width: 600px) {
+        .grid, .events, .soon { grid-template-columns: 1fr; }
+        .card.wide { grid-column: auto; }
+        .numbers { grid-template-columns: 1fr 1fr; }
         .store { flex: 1 1 100%; }
         .btn { flex: 1 1 auto; justify-content: center; }
-        .phone { width: 270px; height: 560px; }
-        section.block { padding: 3.5rem 0; }
+        .phone { width: 282px; height: 590px; }
+        section.block { padding: 3.2rem 0; }
       }
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-        .reveal { opacity: 1; transform: none; }
+        .js .reveal { opacity: 1; transform: none; }
       }
     </style>
   </head>
   <body>
+    <script>document.documentElement.classList.add("js");</script>
     <canvas id="sky" aria-hidden="true"></canvas>
 
     <header id="hdr">
@@ -216,6 +290,7 @@
         </a>
         <nav class="menu">
           <a href="#features" data-i18n="navFeatures">Fonctionnalités</a>
+          <a href="#calendar" data-i18n="navCalendar">Calendrier</a>
           <a href="#privacy" data-i18n="navPrivacyShort">Vie privée</a>
           <a href="#faq" data-i18n="navFaq">Questions</a>
         </nav>
@@ -228,16 +303,23 @@
     </header>
 
     <main id="top">
-      <!-- Hero avec démo interactive -->
+      <!-- Hero + démo -->
       <section class="hero">
         <div class="wrap hero-grid">
           <div class="reveal">
             <span class="chip"><span class="dot"></span><span data-i18n="chip">Bientôt sur iPhone et Android</span></span>
             <h1><span data-i18n="title1">Vos prières, à l’heure,</span> <span class="shine" data-i18n="title2">où que vous soyez.</span></h1>
-            <p class="lead" data-i18n="lead">Dhikr calcule les horaires de prière directement sur votre téléphone, indique la direction de la Qibla et vous accompagne avec des invocations et des rappels. Sans compte, sans publicité, même hors ligne.</p>
+            <p class="lead" data-i18n="lead">Horaires de prière, Qibla, invocations, tasbih, calendrier hégirien et rappels avec adhan : Dhikr réunit l’essentiel de votre journée dans une application sobre, qui calcule tout sur votre téléphone. Sans compte, sans publicité, même hors ligne.</p>
+            <ul class="hero-points">
+              <li data-i18n="hp1">Gratuit</li>
+              <li data-i18n="hp2">Hors ligne</li>
+              <li data-i18n="hp3">Sans compte</li>
+              <li data-i18n="hp4">Sans publicité</li>
+              <li data-i18n="hp5">FR · EN · AR</li>
+            </ul>
             <div class="cta">
               <a class="btn primary" href="#demo" data-i18n="ctaTry">Essayer ici, maintenant</a>
-              <a class="btn ghost" href="#features" data-i18n="ctaMore">Découvrir l’app</a>
+              <a class="btn ghost" href="#features" data-i18n="ctaMore">Toutes les fonctionnalités</a>
             </div>
             <div class="stores">
               <div class="store">
@@ -254,107 +336,245 @@
 
           <div class="phone-col reveal" id="demo">
             <div class="phone-stage">
-              <div class="phone" id="phone">
+              <div class="phone" id="phone" data-theme="dark">
                 <div class="notch"></div>
                 <div class="screen">
-                  <div class="scr-top">
-                    <div class="city" id="scrCity">Verviers</div>
-                    <div class="hijri" id="scrHijri"></div>
-                  </div>
                   <div class="panes">
-                    <div class="pane active" id="pane-times" role="tabpanel">
-                      <div class="next">
-                        <div class="lbl" data-i18n="mockNext">Prochaine prière</div>
+                    <!-- Accueil -->
+                    <div class="pane active" id="pane-home" role="tabpanel">
+                      <div>
+                        <div class="greet">As-salāmu ʿalaykum</div>
+                        <div class="dates"><span id="gregDate"></span> · <b id="hijriDate"></b></div>
+                      </div>
+                      <div class="p-card nextcard">
+                        <div class="p-label"><span data-i18n="mockNext">Prochaine prière</span> · <span id="cityHome"></span></div>
                         <b id="nextName">—</b>
                         <div class="cd" id="countdown">--:--:--</div>
                         <div class="prog"><i id="progress"></i></div>
                       </div>
-                      <div id="rows"></div>
+                      <div class="p-label" data-i18n="dodTitle">Dhikr du jour</div>
+                      <div class="p-card dod" id="dod" role="button" tabindex="0">
+                        <div class="ar-text" id="dodAr"></div>
+                        <div class="tr" id="dodTr"></div>
+                        <span class="go" data-i18n="dodGo">Commencer au tasbih</span>
+                      </div>
+                      <div class="shortcuts">
+                        <button type="button" data-pane="times"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-i18n="tabTimes">Prières</span></button>
+                        <button type="button" data-pane="qibla"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg><span data-i18n="tabQibla">Qibla</span></button>
+                        <button type="button" data-pane="tasbih"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="18" cy="10" r="2"/><circle cx="16" cy="17" r="2"/><circle cx="8" cy="17" r="2"/><circle cx="6" cy="10" r="2"/></svg><span data-i18n="tabTasbih">Tasbih</span></button>
+                        <button type="button" data-scroll="calendar"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="scCal">Calendrier</span></button>
+                      </div>
                     </div>
+                    <!-- Horaires -->
+                    <div class="pane" id="pane-times" role="tabpanel">
+                      <div class="p-head"><div class="t" data-i18n="timesTitle">Horaires de prière</div><div class="s" id="cityTimes"></div></div>
+                      <div class="daynav">
+                        <button type="button" id="dayPrev" aria-label="−1">‹</button>
+                        <div class="d"><span id="dayLabel"></span><small id="dayDate"></small></div>
+                        <button type="button" id="dayNext" aria-label="+1">›</button>
+                      </div>
+                      <div id="rows" style="display:grid;gap:.3rem"></div>
+                      <div class="p-foot" id="methodFoot"></div>
+                    </div>
+                    <!-- Qibla -->
                     <div class="pane" id="pane-qibla" role="tabpanel">
+                      <div class="p-head"><div class="t" data-i18n="qiblaTitle">Direction de la Qibla</div><div class="s" id="cityQibla"></div></div>
                       <div class="compass" id="compass">
                         <span class="card-n">N</span>
                         <div class="needle" id="needle"><span class="kaaba"></span></div>
                         <span class="hub"></span>
                       </div>
                       <div class="qibla-deg" id="qiblaDeg">—</div>
-                      <div class="qibla-txt" data-i18n="qiblaTxt">Direction de la Kaaba, en degrés depuis le nord</div>
+                      <div class="qibla-txt" data-i18n="qiblaTxt">Cap géographique vers la Kaaba. Dans l’app, la boussole du téléphone vous indique quand vous êtes aligné.</div>
                     </div>
+                    <!-- Tasbih -->
                     <div class="pane" id="pane-tasbih" role="tabpanel">
+                      <div class="seg" role="group">
+                        <button type="button" data-mode="after" aria-pressed="true" data-i18n="modeAfter">Après la prière</button>
+                        <button type="button" data-mode="free" aria-pressed="false" data-i18n="modeFree">Formule libre</button>
+                      </div>
                       <div class="tasbih">
-                        <div class="ph-ar ar-text" id="phAr"></div>
-                        <div class="ph-tr" id="phTr"></div>
-                        <div class="ph-mean" id="phMean"></div>
+                        <div class="phr">
+                          <button type="button" id="phPrev" aria-label="‹" hidden>‹</button>
+                          <div class="txt">
+                            <div class="ph-ar ar-text" id="phAr"></div>
+                            <div class="ph-tr" id="phTr"></div>
+                            <div class="ph-mean" id="phMean"></div>
+                          </div>
+                          <button type="button" id="phNext" aria-label="›" hidden>›</button>
+                        </div>
+                        <div class="step" id="step"></div>
                         <button class="bead" id="bead" type="button" aria-label="+1">
                           <span class="inner"></span>
                           <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="54" fill="none" stroke-width="7"/><circle class="ring" id="ring" cx="60" cy="60" r="54" fill="none" stroke-width="7" stroke-dasharray="339.3" stroke-dashoffset="339.3"/></svg>
                           <span class="num" id="count">0</span>
                         </button>
-                        <div class="hint" data-i18n="tapHint">Touchez le cercle pour compter</div>
-                        <button class="reset" id="reset" type="button" data-i18n="reset">Remettre à zéro</button>
+                        <div class="meta"><span id="rounds"></span><button class="reset" id="reset" type="button" data-i18n="reset">Réinitialiser</button></div>
                       </div>
                     </div>
                   </div>
                   <div class="tabs" role="tablist">
-                    <button type="button" role="tab" aria-selected="true" data-pane="times"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-i18n="tabTimes">Horaires</span></button>
+                    <button type="button" role="tab" aria-selected="true" data-pane="home"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span data-i18n="tabHome">Accueil</span></button>
+                    <button type="button" role="tab" aria-selected="false" data-pane="times"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-i18n="tabTimes">Prières</span></button>
                     <button type="button" role="tab" aria-selected="false" data-pane="qibla"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg><span data-i18n="tabQibla">Qibla</span></button>
                     <button type="button" role="tab" aria-selected="false" data-pane="tasbih"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="18" cy="10" r="2"/><circle cx="16" cy="17" r="2"/><circle cx="8" cy="17" r="2"/><circle cx="6" cy="10" r="2"/></svg><span data-i18n="tabTasbih">Tasbih</span></button>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="picker">
-              <select id="citySel" aria-label="Ville"></select>
-              <button type="button" id="geoBtn" data-i18n="myPos">📍 Ma position</button>
-              <div class="small" id="demoNote" data-i18n="demoNote">Démo en direct · méthode Ligue islamique mondiale · votre position reste sur votre appareil</div>
+            <div class="controls">
+              <div class="ctl-row">
+                <select id="citySel" aria-label="Ville"></select>
+                <button type="button" class="pill" id="geoBtn" data-i18n="myPos">📍 Ma position</button>
+              </div>
+              <div class="ctl-row">
+                <select id="methodSel" aria-label="Méthode de calcul"></select>
+                <select id="asrSel" aria-label="Asr"></select>
+              </div>
+              <div class="swatches" role="group" id="swatches">
+                <span class="lbl" data-i18n="themeLbl">Thème :</span>
+                <button type="button" class="sw" data-theme="dark" style="background:linear-gradient(135deg,#071a2f 55%,#d8b46a 55%)" aria-pressed="true"></button>
+                <button type="button" class="sw" data-theme="light" style="background:linear-gradient(135deg,#f7f3ea 55%,#7d5a1f 55%)" aria-pressed="false"></button>
+                <button type="button" class="sw" data-theme="emerald" style="background:linear-gradient(135deg,#062019 55%,#d8b46a 55%)" aria-pressed="false"></button>
+                <button type="button" class="sw" data-theme="sand" style="background:linear-gradient(135deg,#f3e9d8 55%,#8a5528 55%)" aria-pressed="false"></button>
+                <button type="button" class="sw" data-theme="black" style="background:linear-gradient(135deg,#000000 55%,#d8b46a 55%)" aria-pressed="false"></button>
+              </div>
+              <div class="small" id="demoNote" data-i18n="demoNote">Démo en direct, calculée sur votre appareil comme dans l’app. Votre position n’est envoyée nulle part.</div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Fonctionnalités -->
+      <!-- Chiffres -->
+      <section class="block" style="padding-top:0">
+        <div class="wrap">
+          <div class="numbers reveal">
+            <div><span class="n" data-count="8">8</span><span data-i18n="n1">méthodes de calcul</span></div>
+            <div><span class="n" data-count="97">97</span><span data-i18n="n2">invocations</span></div>
+            <div><span class="n" data-count="13">13</span><span data-i18n="n3">catégories d’invocations</span></div>
+            <div><span class="n" data-count="5">5</span><span data-i18n="n4">thèmes de couleurs</span></div>
+            <div><span class="n" data-count="3">3</span><span data-i18n="n5">langues</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Fonctionnalités détaillées -->
       <section class="block" id="features">
         <div class="wrap">
           <div class="head reveal">
             <div class="eyebrow" data-i18n="featEyebrow">Fonctionnalités</div>
-            <h2 data-i18n="featTitle">Tout l’essentiel, simplement</h2>
-            <p class="sub" data-i18n="featSub">Une application sobre et apaisante, pensée pour le quotidien.</p>
+            <h2 data-i18n="featTitle">Tout ce que contient l’application</h2>
+            <p class="sub" data-i18n="featSub">Chaque écran de Dhikr, en détail. Tout fonctionne sur votre téléphone, sans connexion.</p>
           </div>
           <div class="grid">
             <div class="card reveal">
+              <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg></div>
+              <h3 data-i18n="c1t">Accueil</h3>
+              <p data-i18n="c1p">Votre journée en un coup d’œil.</p>
+              <ul>
+                <li data-i18n="c1a">Prochaine prière et compte à rebours</li>
+                <li data-i18n="c1b">Date grégorienne et hégirienne du jour</li>
+                <li data-i18n="c1c">Un dhikr du jour, différent chaque jour</li>
+                <li data-i18n="c1d">Raccourcis vers les écrans principaux</li>
+              </ul>
+              <button class="try" type="button" data-go="home" data-i18n="tryIt">Essayer →</button>
+            </div>
+            <div class="card reveal">
               <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-              <h3 data-i18n="f1t">Horaires de prière</h3>
-              <p data-i18n="f1p">Calculés localement selon votre position, avec plusieurs méthodes de calcul au choix.</p>
+              <h3 data-i18n="c2t">Horaires de prière</h3>
+              <p data-i18n="c2p">Les cinq prières et le lever du soleil, calculés selon votre position.</p>
+              <ul>
+                <li data-i18n="c2a">8 méthodes de calcul, dont France / Belgique 12° et Diyanet</li>
+                <li data-i18n="c2b">Asr standard ou hanafite</li>
+                <li data-i18n="c2c">Règle pour les hautes latitudes</li>
+                <li data-i18n="c2d">Jours précédents et suivants</li>
+                <li data-i18n="c2e">Position du téléphone ou ville saisie à la main</li>
+              </ul>
               <button class="try" type="button" data-go="times" data-i18n="tryIt">Essayer →</button>
             </div>
             <div class="card reveal">
               <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></div>
-              <h3 data-i18n="f2t">Direction de la Qibla</h3>
-              <p data-i18n="f2p">Une boussole claire pour trouver la direction de la Kaaba où que vous soyez.</p>
+              <h3 data-i18n="c3t">Qibla</h3>
+              <p data-i18n="c3p">Une boussole claire vers la Kaaba.</p>
+              <ul>
+                <li data-i18n="c3a">Direction calculée en degrés</li>
+                <li data-i18n="c3b">Boussole du téléphone en temps réel</li>
+                <li data-i18n="c3c">Signal quand vous êtes aligné</li>
+                <li data-i18n="c3d">Aide à la calibration du capteur</li>
+              </ul>
               <button class="try" type="button" data-go="qibla" data-i18n="tryIt">Essayer →</button>
             </div>
             <div class="card reveal">
               <div class="ic"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg></div>
-              <h3 data-i18n="f3t">Rappels de prière</h3>
-              <p data-i18n="f3p">Des notifications facultatives, programmées sur votre téléphone, pour ne pas manquer l’heure.</p>
+              <h3 data-i18n="c4t">Rappels et adhan</h3>
+              <p data-i18n="c4p">Des notifications locales, que vous réglez prière par prière.</p>
+              <ul>
+                <li data-i18n="c4a">Choix des prières à rappeler</li>
+                <li data-i18n="c4b">À l’heure, ou 5, 10 ou 15 minutes avant</li>
+                <li data-i18n="c4c">Adhan à voix haute en option, à l’heure de la prière</li>
+                <li data-i18n="c4d">Aucune donnée de position dans les rappels</li>
+              </ul>
+            </div>
+            <div class="card reveal wide">
+              <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h6"/></svg></div>
+              <h3 data-i18n="c5t">Invocations</h3>
+              <p data-i18n="c5p">97 adhkar et invocations du quotidien, classés par moment de la journée.</p>
+              <ul>
+                <li data-i18n="c5a">Texte arabe, translittération et traduction</li>
+                <li data-i18n="c5b">Source indiquée pour chaque invocation</li>
+                <li data-i18n="c5c">Compteur intégré pour les invocations à répéter</li>
+                <li data-i18n="c5d">Recherche par titre, traduction ou texte arabe</li>
+              </ul>
+              <div class="tags">
+                <span data-i18n="cat1">Matin</span><span data-i18n="cat2">Soir</span><span data-i18n="cat3">Après la prière</span><span data-i18n="cat4">Sommeil</span><span data-i18n="cat5">Réveil</span><span data-i18n="cat6">Maison</span><span data-i18n="cat7">Mosquée</span><span data-i18n="cat8">Voyage</span><span data-i18n="cat9">Repas</span><span data-i18n="cat10">Protection</span><span data-i18n="cat11">Épreuves</span><span data-i18n="cat12">Pardon</span><span data-i18n="cat13">Invocations choisies</span>
+              </div>
             </div>
             <div class="card reveal">
-              <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h6"/></svg></div>
-              <h3 data-i18n="f4t">Invocations et tasbih</h3>
-              <p data-i18n="f4p">Des invocations du quotidien en arabe, avec translittération et traduction, et un compteur de tasbih.</p>
+              <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="18" cy="10" r="2"/><circle cx="16" cy="17" r="2"/><circle cx="8" cy="17" r="2"/><circle cx="6" cy="10" r="2"/></svg></div>
+              <h3 data-i18n="c6t">Tasbih</h3>
+              <p data-i18n="c6p">Un compteur personnel, simple et privé.</p>
+              <ul>
+                <li data-i18n="c6a">Mode « après la prière » : 33, 33, 33, puis 1 pour compléter 100</li>
+                <li data-i18n="c6b">Mode libre avec 7 formules et un objectif au choix</li>
+                <li data-i18n="c6c">Tours terminés et vibration à chaque objectif</li>
+              </ul>
               <button class="try" type="button" data-go="tasbih" data-i18n="tryIt">Essayer →</button>
             </div>
             <div class="card reveal">
               <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div>
-              <h3 data-i18n="f5t">Calendrier hégirien</h3>
-              <p data-i18n="f5p">Suivez les mois hégiriens et repérez les dates importantes de l’année.</p>
+              <h3 data-i18n="c7t">Calendrier hégirien</h3>
+              <p data-i18n="c7p">Les mois hégiriens, avec la date grégorienne en regard.</p>
+              <ul>
+                <li data-i18n="c7a">Calendrier Umm al-Qura, calculé hors ligne</li>
+                <li data-i18n="c7b">Repères du mois : Ramadan, Aïd, Achoura, Arafat…</li>
+                <li data-i18n="c7c">Navigation de mois en mois</li>
+              </ul>
+              <a class="try" href="#calendar" data-i18n="seeIt">Voir les prochaines dates ↓</a>
             </div>
             <div class="card reveal">
-              <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
-              <h3 data-i18n="f6t">Français, anglais, arabe</h3>
-              <p data-i18n="f6p">L’application s’adapte à votre langue, y compris l’affichage de droite à gauche.</p>
+              <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></div>
+              <h3 data-i18n="c8t">À votre image</h3>
+              <p data-i18n="c8p">L’app s’adapte à vous.</p>
+              <ul>
+                <li data-i18n="c8a">Français, anglais ou arabe, avec affichage de droite à gauche</li>
+                <li data-i18n="c8b">5 thèmes : Nuit dorée, Clair, Émeraude, Sable, Noir, ou comme le téléphone</li>
+                <li data-i18n="c8c">Accueil guidé au premier lancement</li>
+              </ul>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- Calendrier -->
+      <section class="block" id="calendar">
+        <div class="wrap">
+          <div class="head reveal">
+            <div class="eyebrow" data-i18n="calEyebrow">Calendrier hégirien</div>
+            <h2 data-i18n="calTitle">Les prochaines dates importantes</h2>
+            <p class="sub" id="calToday"></p>
+          </div>
+          <div class="events" id="events"></div>
+          <p class="note" style="text-align:center" data-i18n="calNote">Dates calculées avec le calendrier Umm al-Qura, comme dans l’app. Elles peuvent différer d’un jour de l’observation locale de la lune.</p>
         </div>
       </section>
 
@@ -364,15 +584,48 @@
           <div class="head reveal">
             <div class="eyebrow" data-i18n="privEyebrow">Vie privée</div>
             <h2 data-i18n="privTitle">Votre pratique vous appartient</h2>
-            <p class="sub" data-i18n="privSub">Dhikr fonctionne entièrement sur votre téléphone. Rien n’est envoyé à un serveur.</p>
+            <p class="sub" data-i18n="privSub">Dhikr fonctionne entièrement sur votre téléphone. Votre position est arrondie et ne quitte jamais l’appareil.</p>
           </div>
           <div class="stats">
-            <div class="stat reveal"><span class="n" data-count="0">0</span><b data-i18n="s1b">compte à créer</b><span data-i18n="s1s">Aucune inscription</span></div>
-            <div class="stat reveal"><span class="n" data-count="0">0</span><b data-i18n="s2b">publicité</b><span data-i18n="s2s">Ni pub, ni revente de données</span></div>
-            <div class="stat reveal"><span class="n" data-count="0">0</span><b data-i18n="s3b">traceur</b><span data-i18n="s3s">Aucun suivi, aucun analytics</span></div>
+            <div class="stat reveal"><span class="n">0</span><b data-i18n="s1b">compte à créer</b><span data-i18n="s1s">Aucune inscription</span></div>
+            <div class="stat reveal"><span class="n">0</span><b data-i18n="s2b">publicité</b><span data-i18n="s2s">Ni pub, ni revente de données</span></div>
+            <div class="stat reveal"><span class="n">0</span><b data-i18n="s3b">traceur</b><span data-i18n="s3s">Aucun suivi, aucun analytics</span></div>
             <div class="stat reveal"><span class="n" data-count="100" data-suffix=" %">100 %</span><b data-i18n="s4b">sur l’appareil</b><span data-i18n="s4s">Fonctionne hors ligne</span></div>
           </div>
           <p class="note" style="text-align:center"><a href="privacy.html" data-i18n="privLink">Lire la politique de confidentialité</a></p>
+        </div>
+      </section>
+
+      <!-- À venir -->
+      <section class="block" id="soon">
+        <div class="wrap">
+          <div class="head reveal">
+            <div class="eyebrow" data-i18n="soonEyebrow">À venir</div>
+            <h2 data-i18n="soonTitle">Et ensuite&nbsp;?</h2>
+            <p class="sub" data-i18n="soonSub">Dhikr continue de grandir. Voici ce qui est en préparation pour une prochaine version.</p>
+          </div>
+          <div class="soon">
+            <div class="card reveal">
+              <span class="tag" data-i18n="tagPrep">En préparation</span>
+              <h3 data-i18n="q1t">Le Coran</h3>
+              <p data-i18n="q1p">Le texte arabe complet, avec une traduction française reconnue.</p>
+            </div>
+            <div class="card reveal">
+              <span class="tag" data-i18n="tagPrep">En préparation</span>
+              <h3 data-i18n="q2t">Mosquées proches</h3>
+              <p data-i18n="q2p">Trouver les mosquées autour de vous et s’y rendre.</p>
+            </div>
+            <div class="card reveal">
+              <span class="tag" data-i18n="tagPrep">En préparation</span>
+              <h3 data-i18n="q3t">Récitation audio</h3>
+              <p data-i18n="q3p">Écouter la récitation du Coran dans l’application.</p>
+            </div>
+            <div class="card reveal">
+              <span class="tag" data-i18n="tagProject">Projet à venir</span>
+              <h3>NUR Solidarité</h3>
+              <p data-i18n="q4p">Un projet d’entraide pour les personnes dans le besoin. Aucune collecte n’est ouverte : elle attendra un cadre légal clair.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -384,34 +637,12 @@
             <h2 data-i18n="faqTitle">Vous vous demandez…</h2>
           </div>
           <div class="faq">
-            <details class="reveal"><summary data-i18n="q1">Dhikr est-elle gratuite&nbsp;?</summary><p data-i18n="a1">Oui. Pas d’abonnement, pas d’achat intégré, pas de publicité.</p></details>
-            <details class="reveal"><summary data-i18n="q2">Faut-il une connexion Internet&nbsp;?</summary><p data-i18n="a2">Non. Les horaires et la Qibla sont calculés directement sur votre téléphone, même hors ligne.</p></details>
-            <details class="reveal"><summary data-i18n="q3">Mes données sont-elles envoyées quelque part&nbsp;?</summary><p data-i18n="a3">Non. Pas de compte, pas de serveur Dhikr. Votre position sert uniquement au calcul, sur l’appareil.</p></details>
-            <details class="reveal"><summary data-i18n="q4">Peut-on choisir la méthode de calcul&nbsp;?</summary><p data-i18n="a4">Oui. Plusieurs méthodes reconnues sont proposées dans les réglages, pour suivre l’usage de votre mosquée.</p></details>
-            <details class="reveal"><summary data-i18n="q5">Quand sera-t-elle disponible&nbsp;?</summary><p data-i18n="a5">L’application est en cours de publication sur l’App Store et Google Play. Les liens apparaîtront sur cette page.</p></details>
-          </div>
-        </div>
-      </section>
-
-      <!-- Et ensuite -->
-      <section class="block" id="soon">
-        <div class="wrap">
-          <div class="head reveal">
-            <div class="eyebrow" data-i18n="soonEyebrow">À venir</div>
-            <h2 data-i18n="soonTitle">Et ensuite&nbsp;?</h2>
-            <p class="sub" data-i18n="soonSub">Dhikr continue de grandir. Voici ce qui est en préparation.</p>
-          </div>
-          <div class="soon">
-            <div class="card reveal">
-              <span class="tag" data-i18n="tagPrep">En préparation</span>
-              <h3 data-i18n="s1t">De nouvelles fonctionnalités</h3>
-              <p data-i18n="s1p">D’autres écrans sont à l’étude pour les prochaines versions. Nous les annoncerons ici lorsqu’ils seront prêts.</p>
-            </div>
-            <div class="card reveal">
-              <span class="tag" data-i18n="tagProject">Projet à venir</span>
-              <h3>NUR Solidarité</h3>
-              <p data-i18n="s2p">Une initiative solidaire pour aider les personnes dans le besoin est en cours de réflexion. Aucune collecte n’est ouverte pour le moment.</p>
-            </div>
+            <details class="reveal"><summary data-i18n="fq1">Dhikr est-elle gratuite&nbsp;?</summary><p data-i18n="fa1">Oui. Pas d’abonnement, pas d’achat intégré, pas de publicité.</p></details>
+            <details class="reveal"><summary data-i18n="fq2">Faut-il une connexion Internet&nbsp;?</summary><p data-i18n="fa2">Non. Les horaires, la Qibla, le calendrier, les invocations et le tasbih fonctionnent hors ligne.</p></details>
+            <details class="reveal"><summary data-i18n="fq3">Les horaires correspondent-ils à ma mosquée&nbsp;?</summary><p data-i18n="fa3">Choisissez dans les réglages la méthode de votre mosquée : 8 méthodes sont proposées, dont France / Belgique 12°, Diyanet et Ligue islamique mondiale, avec l’Asr standard ou hanafite. En cas de doute, comparez avec votre mosquée.</p></details>
+            <details class="reveal"><summary data-i18n="fq4">Mes données sont-elles envoyées quelque part&nbsp;?</summary><p data-i18n="fa4">Non. Pas de compte, pas de serveur Dhikr. Votre position est arrondie et reste sur l’appareil. Vous pouvez aussi saisir votre ville à la main.</p></details>
+            <details class="reveal"><summary data-i18n="fq5">Peut-on entendre l’adhan&nbsp;?</summary><p data-i18n="fa5">Oui, en option : le début de l’adhan (30 secondes au plus) peut remplacer le son du rappel à l’heure de la prière. Sur iPhone, le mode silencieux le coupe aussi.</p></details>
+            <details class="reveal"><summary data-i18n="fq6">Quand sera-t-elle disponible&nbsp;?</summary><p data-i18n="fa6">L’application est en cours de publication sur l’App Store et Google Play. Les liens apparaîtront sur cette page.</p></details>
           </div>
         </div>
       </section>
@@ -425,6 +656,7 @@
               <a class="btn primary" href="mailto:saidtarekflst@gmail.com" data-i18n="finalBtn">Nous écrire</a>
               <a class="btn ghost" href="support.html" data-i18n="navSupport">Assistance</a>
             </div>
+            <div class="mail">saidtarekflst@gmail.com</div>
           </div>
         </div>
       </section>
@@ -451,127 +683,198 @@
         var T = {
           en: {
             _title: "Dhikr — Prayer times and reminders",
-            navFeatures: "Features", navPrivacyShort: "Privacy", navFaq: "FAQ",
+            navFeatures: "Features", navCalendar: "Calendar", navPrivacyShort: "Privacy", navFaq: "FAQ",
             chip: "Coming soon to iPhone and Android",
             title1: "Your prayers, on time,", title2: "wherever you are.",
-            lead: "Dhikr calculates prayer times right on your phone, shows the Qibla direction and keeps you company with supplications and reminders. No account, no ads, even offline.",
-            ctaTry: "Try it here, now", ctaMore: "Discover the app",
+            lead: "Prayer times, Qibla, supplications, tasbih, Hijri calendar and reminders with adhan: Dhikr brings the essentials of your day together in a calm app that calculates everything on your phone. No account, no ads, even offline.",
+            hp1: "Free", hp2: "Offline", hp3: "No account", hp4: "No ads", hp5: "FR · EN · AR",
+            ctaTry: "Try it here, now", ctaMore: "All features",
             soon: "Coming soon",
             storeNote: "The app is being published. Store links will appear here as soon as it is live.",
-            mockNext: "Next prayer",
-            qiblaTxt: "Direction of the Kaaba, in degrees from north",
-            tapHint: "Tap the circle to count", reset: "Reset",
-            tabTimes: "Times", tabQibla: "Qibla", tabTasbih: "Tasbih",
-            myPos: "📍 My location",
-            demoNote: "Live demo · Muslim World League method · your location stays on your device",
-            featEyebrow: "Features",
-            featTitle: "Everything essential, simply",
-            featSub: "A calm, uncluttered app designed for everyday life.",
-            f1t: "Prayer times", f1p: "Calculated locally from your location, with several calculation methods to choose from.",
-            f2t: "Qibla direction", f2p: "A clear compass to find the direction of the Kaaba wherever you are.",
-            f3t: "Prayer reminders", f3p: "Optional notifications, scheduled on your phone, so you never miss the time.",
-            f4t: "Supplications and tasbih", f4p: "Everyday supplications in Arabic, with transliteration and translation, plus a tasbih counter.",
-            f5t: "Hijri calendar", f5p: "Follow the Hijri months and keep track of the important dates of the year.",
-            f6t: "French, English, Arabic", f6p: "The app adapts to your language, including right-to-left display.",
+            mockNext: "Next prayer", dodTitle: "Dhikr of the day", dodGo: "Start on the tasbih", scCal: "Calendar",
+            timesTitle: "Prayer times", qiblaTitle: "Qibla direction",
+            qiblaTxt: "Geographic bearing to the Kaaba. In the app, your phone’s compass tells you when you are aligned.",
+            modeAfter: "After prayer", modeFree: "Free phrase", reset: "Reset",
+            tabHome: "Home", tabTimes: "Prayers", tabQibla: "Qibla", tabTasbih: "Tasbih",
+            myPos: "📍 My location", themeLbl: "Theme:",
+            demoNote: "Live demo, calculated on your device just like the app. Your location is never sent anywhere.",
+            n1: "calculation methods", n2: "supplications", n3: "supplication categories", n4: "colour themes", n5: "languages",
+            featEyebrow: "Features", featTitle: "Everything inside the app",
+            featSub: "Every Dhikr screen, in detail. Everything works on your phone, offline.",
+            c1t: "Home", c1p: "Your day at a glance.",
+            c1a: "Next prayer and countdown", c1b: "Today’s Gregorian and Hijri date", c1c: "A dhikr of the day, different every day", c1d: "Shortcuts to the main screens",
+            c2t: "Prayer times", c2p: "The five prayers and sunrise, calculated from your location.",
+            c2a: "8 calculation methods, including France / Belgium 12° and Diyanet", c2b: "Standard or Hanafi Asr", c2c: "High-latitude rule", c2d: "Previous and next days", c2e: "Phone location or a city entered by hand",
+            c3t: "Qibla", c3p: "A clear compass to the Kaaba.",
+            c3a: "Direction calculated in degrees", c3b: "Live phone compass", c3c: "A signal when you are aligned", c3d: "Help to calibrate the sensor",
+            c4t: "Reminders and adhan", c4p: "Local notifications you set prayer by prayer.",
+            c4a: "Choose which prayers to be reminded of", c4b: "On time, or 5, 10 or 15 minutes before", c4c: "Optional adhan out loud at prayer time", c4d: "No location data in reminders",
+            c5t: "Supplications", c5p: "97 adhkar and everyday supplications, sorted by moment of the day.",
+            c5a: "Arabic text, transliteration and translation", c5b: "Source shown for each supplication", c5c: "Built-in counter for supplications to repeat", c5d: "Search by title, translation or Arabic text",
+            cat1: "Morning", cat2: "Evening", cat3: "After prayer", cat4: "Sleep", cat5: "Waking up", cat6: "Home", cat7: "Mosque", cat8: "Travel", cat9: "Meals", cat10: "Protection", cat11: "Hardship", cat12: "Forgiveness", cat13: "Selected supplications",
+            c6t: "Tasbih", c6p: "A personal counter, simple and private.",
+            c6a: "“After prayer” mode: 33, 33, 33, then 1 to complete 100", c6b: "Free mode with 7 phrases and a target of your choice", c6c: "Completed rounds and a vibration at each target",
+            c7t: "Hijri calendar", c7p: "The Hijri months, with the Gregorian date alongside.",
+            c7a: "Umm al-Qura calendar, calculated offline", c7b: "Key dates of the month: Ramadan, Eid, Ashura, Arafat…", c7c: "Browse month by month",
+            seeIt: "See the upcoming dates ↓",
+            c8t: "Made for you", c8p: "The app adapts to you.",
+            c8a: "French, English or Arabic, with right-to-left display", c8b: "5 themes: Golden night, Light, Emerald, Sand, Black, or same as phone", c8c: "Guided welcome on first launch",
             tryIt: "Try it →",
-            privEyebrow: "Privacy",
-            privTitle: "Your practice belongs to you",
-            privSub: "Dhikr runs entirely on your phone. Nothing is sent to a server.",
-            s1b: "account to create", s1s: "No sign-up",
-            s2b: "ads", s2s: "No ads, no data sold",
-            s3b: "trackers", s3s: "No tracking, no analytics",
-            s4b: "on your device", s4s: "Works offline",
+            calEyebrow: "Hijri calendar", calTitle: "Upcoming important dates",
+            calNote: "Dates calculated with the Umm al-Qura calendar, as in the app. They may differ by a day from local moon sighting.",
+            privEyebrow: "Privacy", privTitle: "Your practice belongs to you",
+            privSub: "Dhikr runs entirely on your phone. Your location is rounded and never leaves the device.",
+            s1b: "account to create", s1s: "No sign-up", s2b: "ads", s2s: "No ads, no data sold", s3b: "trackers", s3s: "No tracking, no analytics", s4b: "on your device", s4s: "Works offline",
             privLink: "Read the privacy policy",
-            faqEyebrow: "Frequently asked questions", faqTitle: "You may be wondering…",
-            q1: "Is Dhikr free?", a1: "Yes. No subscription, no in-app purchase, no ads.",
-            q2: "Do I need an Internet connection?", a2: "No. Prayer times and the Qibla are calculated right on your phone, even offline.",
-            q3: "Is my data sent anywhere?", a3: "No. No account, no Dhikr server. Your location is only used for the calculation, on the device.",
-            q4: "Can I choose the calculation method?", a4: "Yes. Several recognised methods are available in the settings, so you can follow your mosque’s practice.",
-            q5: "When will it be available?", a5: "The app is being published on the App Store and Google Play. The links will appear on this page.",
-            soonEyebrow: "Coming up", soonTitle: "What’s next?",
-            soonSub: "Dhikr keeps growing. Here is what is being prepared.",
+            soonEyebrow: "Coming up", soonTitle: "What’s next?", soonSub: "Dhikr keeps growing. Here is what is being prepared for a future version.",
             tagPrep: "In preparation", tagProject: "Upcoming project",
-            s1t: "New features", s1p: "More screens are being considered for future versions. We will announce them here when they are ready.",
-            s2p: "A solidarity initiative to help people in need is being considered. No fundraising is open at this time.",
+            q1t: "The Quran", q1p: "The complete Arabic text, with a recognised French translation.",
+            q2t: "Nearby mosques", q2p: "Find the mosques around you and get there.",
+            q3t: "Audio recitation", q3p: "Listen to Quran recitation inside the app.",
+            q4p: "A mutual-aid project for people in need. No fundraising is open: it will wait for a clear legal framework.",
+            faqEyebrow: "Frequently asked questions", faqTitle: "You may be wondering…",
+            fq1: "Is Dhikr free?", fa1: "Yes. No subscription, no in-app purchase, no ads.",
+            fq2: "Do I need an Internet connection?", fa2: "No. Prayer times, Qibla, calendar, supplications and tasbih all work offline.",
+            fq3: "Will the times match my mosque?", fa3: "Pick your mosque’s method in the settings: 8 methods are available, including France / Belgium 12°, Diyanet and Muslim World League, with standard or Hanafi Asr. If in doubt, compare with your mosque.",
+            fq4: "Is my data sent anywhere?", fa4: "No. No account, no Dhikr server. Your location is rounded and stays on the device. You can also enter your city by hand.",
+            fq5: "Can I hear the adhan?", fa5: "Yes, as an option: the beginning of the adhan (30 seconds at most) can replace the reminder sound at prayer time. On iPhone, silent mode also mutes it.",
+            fq6: "When will it be available?", fa6: "The app is being published on the App Store and Google Play. The links will appear on this page.",
             finalTitle: "A question, an idea?", finalSub: "Write to us, we read every message.", finalBtn: "Write to us",
             navSupport: "Support", navPrivacy: "Privacy", navContact: "Contact",
             credit: "Demo calculated with the open-source adhan library (MIT licence), the same one used in the app. Indicative times: check with your mosque.",
             fajr: "Fajr", sunrise: "Sunrise", dhuhr: "Dhuhr", asr: "Asr", maghrib: "Maghrib", isha: "Isha",
-            myPosCity: "My location", geoDenied: "Location unavailable. Choose a city instead.", tomorrow: "tomorrow"
+            myPosCity: "My location", geoDenied: "Location unavailable. Choose a city instead.", tomorrow: "tomorrow",
+            today: "Today", yesterday: "Yesterday", tomorrowCap: "Tomorrow",
+            step: "Step {a} of 4", rounds: "Rounds: {n}", done100: "The 100 are complete",
+            inDays: "days", todayShort: "today", calToday: "Today is {h}.",
+            asrStd: "Asr: standard", asrHan: "Asr: Hanafi",
+            m_mwl: "Muslim World League", m_egyptian: "Egyptian General Authority of Survey", m_ummAlQura: "Umm al-Qura University", m_karachi: "University of Islamic Sciences, Karachi", m_northAmerica: "North America / ISNA", m_moonsighting: "Moonsighting Committee", m_turkey: "Diyanet (Turkey)", m_france12: "France / Belgium – 12°",
+            ev_muharramFirst: "1 Muharram", ev_muharramFirstD: "Islamic New Year",
+            ev_muharramTenth: "10 Muharram", ev_muharramTenthD: "Day of Ashura",
+            ev_ramadanFirst: "Beginning of Ramadan", ev_ramadanFirstD: "1 Ramadan",
+            ev_shawwalFirst: "1 Shawwal", ev_shawwalFirstD: "Eid al-Fitr",
+            ev_dhuAlHijjahNinth: "9 Dhu al-Hijjah", ev_dhuAlHijjahNinthD: "Day of Arafah",
+            ev_dhuAlHijjahTenth: "10 Dhu al-Hijjah", ev_dhuAlHijjahTenthD: "Eid al-Adha"
           },
           ar: {
             _title: "ذِكْر — مواقيت الصلاة والتذكير",
-            navFeatures: "المزايا", navPrivacyShort: "الخصوصية", navFaq: "أسئلة",
+            navFeatures: "المزايا", navCalendar: "التقويم", navPrivacyShort: "الخصوصية", navFaq: "أسئلة",
             chip: "قريبًا على آيفون وأندرويد",
             title1: "صلاتك في وقتها،", title2: "أينما كنت.",
-            lead: "يحسب «ذِكْر» مواقيت الصلاة مباشرة على هاتفك، ويحدد اتجاه القبلة، ويرافقك بالأدعية والتذكيرات. دون حساب، ودون إعلانات، حتى دون اتصال بالإنترنت.",
-            ctaTry: "جرّبه هنا الآن", ctaMore: "اكتشف التطبيق",
+            lead: "مواقيت الصلاة، والقبلة، والأدعية، والتسبيح، والتقويم الهجري، والتذكير مع الأذان: يجمع «ذِكْر» أساسيات يومك في تطبيق هادئ يحسب كل شيء على هاتفك. دون حساب، ودون إعلانات، حتى دون إنترنت.",
+            hp1: "مجاني", hp2: "دون إنترنت", hp3: "دون حساب", hp4: "دون إعلانات", hp5: "FR · EN · AR",
+            ctaTry: "جرّبه هنا الآن", ctaMore: "كل المزايا",
             soon: "قريبًا",
             storeNote: "التطبيق قيد النشر. ستظهر روابط المتاجر هنا فور إتاحته.",
-            mockNext: "الصلاة القادمة",
-            qiblaTxt: "اتجاه الكعبة بالدرجات انطلاقًا من الشمال",
-            tapHint: "المس الدائرة للعدّ", reset: "إعادة إلى الصفر",
-            tabTimes: "المواقيت", tabQibla: "القبلة", tabTasbih: "التسبيح",
-            myPos: "📍 موقعي",
-            demoNote: "عرض مباشر · طريقة رابطة العالم الإسلامي · موقعك يبقى على جهازك",
-            featEyebrow: "المزايا",
-            featTitle: "كل ما هو أساسي، ببساطة",
-            featSub: "تطبيق هادئ وبسيط، مصمم للحياة اليومية.",
-            f1t: "مواقيت الصلاة", f1p: "تُحسب محليًا حسب موقعك، مع عدة طرق حساب للاختيار.",
-            f2t: "اتجاه القبلة", f2p: "بوصلة واضحة لمعرفة اتجاه الكعبة أينما كنت.",
-            f3t: "تذكير بالصلاة", f3p: "إشعارات اختيارية تُبرمج على هاتفك حتى لا يفوتك الوقت.",
-            f4t: "الأدعية والتسبيح", f4p: "أدعية يومية بالعربية، مع النطق بالحروف اللاتينية والترجمة، وعدّاد للتسبيح.",
-            f5t: "التقويم الهجري", f5p: "تابع الأشهر الهجرية والمناسبات المهمة في السنة.",
-            f6t: "الفرنسية والإنجليزية والعربية", f6p: "يتكيف التطبيق مع لغتك، بما في ذلك العرض من اليمين إلى اليسار.",
+            mockNext: "الصلاة القادمة", dodTitle: "ذكر اليوم", dodGo: "ابدأ بالتسبيح", scCal: "التقويم",
+            timesTitle: "مواقيت الصلاة", qiblaTitle: "اتجاه القبلة",
+            qiblaTxt: "الاتجاه الجغرافي نحو الكعبة. في التطبيق، تخبرك بوصلة الهاتف عندما تكون في الاتجاه الصحيح.",
+            modeAfter: "بعد الصلاة", modeFree: "ذكر حر", reset: "إعادة",
+            tabHome: "الرئيسية", tabTimes: "الصلوات", tabQibla: "القبلة", tabTasbih: "التسبيح",
+            myPos: "📍 موقعي", themeLbl: "المظهر:",
+            demoNote: "عرض مباشر يُحسب على جهازك كما في التطبيق. لا يُرسل موقعك إلى أي مكان.",
+            n1: "طرق حساب", n2: "دعاءً", n3: "فئة للأدعية", n4: "مظاهر لونية", n5: "لغات",
+            featEyebrow: "المزايا", featTitle: "كل ما يحتويه التطبيق",
+            featSub: "كل شاشات «ذِكْر» بالتفصيل. كل شيء يعمل على هاتفك دون اتصال.",
+            c1t: "الرئيسية", c1p: "يومك في لمحة.",
+            c1a: "الصلاة القادمة مع العدّ التنازلي", c1b: "التاريخ الميلادي والهجري لليوم", c1c: "ذكر لليوم يتغير كل يوم", c1d: "اختصارات إلى الشاشات الرئيسية",
+            c2t: "مواقيت الصلاة", c2p: "الصلوات الخمس والشروق، محسوبة حسب موقعك.",
+            c2a: "8 طرق حساب، منها فرنسا / بلجيكا 12° وديانت", c2b: "العصر حسب الجمهور أو الحنفي", c2c: "قاعدة لخطوط العرض العالية", c2d: "الأيام السابقة والتالية", c2e: "موقع الهاتف أو مدينة تُكتب يدويًا",
+            c3t: "القبلة", c3p: "بوصلة واضحة نحو الكعبة.",
+            c3a: "الاتجاه محسوب بالدرجات", c3b: "بوصلة الهاتف مباشرة", c3c: "إشارة عندما تكون في الاتجاه الصحيح", c3d: "مساعدة على معايرة المستشعر",
+            c4t: "التذكير والأذان", c4p: "إشعارات محلية تضبطها صلاةً صلاة.",
+            c4a: "اختيار الصلوات التي تريد التذكير بها", c4b: "في الوقت، أو قبل 5 أو 10 أو 15 دقيقة", c4c: "الأذان بصوت مسموع اختياريًا عند وقت الصلاة", c4d: "لا بيانات موقع في التذكيرات",
+            c5t: "الأدعية", c5p: "97 من الأذكار والأدعية اليومية، مرتبة حسب أوقات اليوم.",
+            c5a: "النص العربي، والنطق بالحروف اللاتينية، والترجمة", c5b: "المصدر مذكور لكل دعاء", c5c: "عدّاد مدمج للأذكار التي تُكرر", c5d: "بحث بالعنوان أو الترجمة أو النص العربي",
+            cat1: "أذكار الصباح", cat2: "أذكار المساء", cat3: "بعد الصلاة", cat4: "النوم", cat5: "الاستيقاظ", cat6: "المنزل", cat7: "المسجد", cat8: "السفر", cat9: "الطعام", cat10: "التحصين", cat11: "الكرب والشدة", cat12: "الاستغفار", cat13: "أدعية مختارة",
+            c6t: "التسبيح", c6p: "عدّاد شخصي بسيط وخاص.",
+            c6a: "وضع «بعد الصلاة»: 33 و33 و33 ثم 1 لإتمام المئة", c6b: "وضع حر مع 7 أذكار وهدف تختاره", c6c: "عدد الدورات واهتزاز عند كل هدف",
+            c7t: "التقويم الهجري", c7p: "الأشهر الهجرية مع التاريخ الميلادي بجانبها.",
+            c7a: "تقويم أم القرى محسوب دون إنترنت", c7b: "مناسبات الشهر: رمضان، العيد، عاشوراء، عرفة…", c7c: "تنقل من شهر إلى شهر",
+            seeIt: "شاهد التواريخ القادمة ↓",
+            c8t: "على ذوقك", c8p: "يتكيف التطبيق معك.",
+            c8a: "الفرنسية أو الإنجليزية أو العربية، مع العرض من اليمين إلى اليسار", c8b: "5 مظاهر: ليل ذهبي، فاتح، زمردي، رملي، أسود، أو حسب الهاتف", c8c: "ترحيب موجّه عند أول تشغيل",
             tryIt: "جرّب ←",
-            privEyebrow: "الخصوصية",
-            privTitle: "عبادتك ملك لك",
-            privSub: "يعمل «ذِكْر» بالكامل على هاتفك. لا يُرسل أي شيء إلى خادم.",
-            s1b: "حساب مطلوب", s1s: "لا تسجيل",
-            s2b: "إعلانات", s2s: "لا إعلانات ولا بيع للبيانات",
-            s3b: "أدوات تتبع", s3s: "لا تتبع ولا تحليلات",
-            s4b: "على جهازك", s4s: "يعمل دون إنترنت",
+            calEyebrow: "التقويم الهجري", calTitle: "المناسبات المهمة القادمة",
+            calNote: "تواريخ محسوبة بتقويم أم القرى كما في التطبيق. قد تختلف بيوم عن الرؤية المحلية للهلال.",
+            privEyebrow: "الخصوصية", privTitle: "عبادتك ملك لك",
+            privSub: "يعمل «ذِكْر» بالكامل على هاتفك. يُقرَّب موقعك ولا يغادر الجهاز أبدًا.",
+            s1b: "حساب مطلوب", s1s: "لا تسجيل", s2b: "إعلانات", s2s: "لا إعلانات ولا بيع للبيانات", s3b: "أدوات تتبع", s3s: "لا تتبع ولا تحليلات", s4b: "على جهازك", s4s: "يعمل دون إنترنت",
             privLink: "اقرأ سياسة الخصوصية (بالفرنسية)",
-            faqEyebrow: "أسئلة شائعة", faqTitle: "ربما تتساءل…",
-            q1: "هل «ذِكْر» مجاني؟", a1: "نعم. لا اشتراك ولا مشتريات داخل التطبيق ولا إعلانات.",
-            q2: "هل أحتاج إلى اتصال بالإنترنت؟", a2: "لا. تُحسب المواقيت والقبلة مباشرة على هاتفك، حتى دون اتصال.",
-            q3: "هل تُرسل بياناتي إلى أي مكان؟", a3: "لا. لا حساب ولا خادم. يُستخدم موقعك للحساب فقط، على الجهاز.",
-            q4: "هل يمكن اختيار طريقة الحساب؟", a4: "نعم. تتوفر عدة طرق معتمدة في الإعدادات، لتتبع ما يعمل به مسجدك.",
-            q5: "متى سيكون متاحًا؟", a5: "التطبيق قيد النشر على App Store وGoogle Play. ستظهر الروابط في هذه الصفحة.",
-            soonEyebrow: "قريبًا", soonTitle: "وماذا بعد؟",
-            soonSub: "«ذِكْر» يواصل النمو. إليك ما يجري إعداده.",
+            soonEyebrow: "قريبًا", soonTitle: "وماذا بعد؟", soonSub: "«ذِكْر» يواصل النمو. إليك ما يجري إعداده لإصدار قادم.",
             tagPrep: "قيد الإعداد", tagProject: "مشروع قادم",
-            s1t: "ميزات جديدة", s1p: "شاشات أخرى قيد الدراسة للإصدارات القادمة. سنعلن عنها هنا عندما تكون جاهزة.",
-            s2p: "مبادرة تضامنية لمساعدة المحتاجين قيد التفكير. لا يوجد أي جمع للتبرعات حاليًا.",
+            q1t: "القرآن الكريم", q1p: "النص العربي كاملًا مع ترجمة فرنسية معتمدة.",
+            q2t: "المساجد القريبة", q2p: "العثور على المساجد من حولك والوصول إليها.",
+            q3t: "التلاوة الصوتية", q3p: "الاستماع إلى تلاوة القرآن داخل التطبيق.",
+            q4p: "مشروع تكافلي لمساعدة المحتاجين. لا يوجد أي جمع للتبرعات: سينتظر إطارًا قانونيًا واضحًا.",
+            faqEyebrow: "أسئلة شائعة", faqTitle: "ربما تتساءل…",
+            fq1: "هل «ذِكْر» مجاني؟", fa1: "نعم. لا اشتراك ولا مشتريات داخل التطبيق ولا إعلانات.",
+            fq2: "هل أحتاج إلى اتصال بالإنترنت؟", fa2: "لا. المواقيت والقبلة والتقويم والأدعية والتسبيح كلها تعمل دون اتصال.",
+            fq3: "هل تطابق المواقيتُ مسجدي؟", fa3: "اختر طريقة مسجدك في الإعدادات: تتوفر 8 طرق منها فرنسا / بلجيكا 12° وديانت ورابطة العالم الإسلامي، مع العصر حسب الجمهور أو الحنفي. عند الشك، قارن مع مسجدك.",
+            fq4: "هل تُرسل بياناتي إلى أي مكان؟", fa4: "لا. لا حساب ولا خادم. يُقرَّب موقعك ويبقى على الجهاز. ويمكنك أيضًا كتابة مدينتك يدويًا.",
+            fq5: "هل يمكن سماع الأذان؟", fa5: "نعم، اختياريًا: يمكن أن تحل بداية الأذان (30 ثانية على الأكثر) محل صوت التذكير عند وقت الصلاة. على آيفون، يكتمه الوضع الصامت أيضًا.",
+            fq6: "متى سيكون متاحًا؟", fa6: "التطبيق قيد النشر على App Store وGoogle Play. ستظهر الروابط في هذه الصفحة.",
             finalTitle: "سؤال أو فكرة؟", finalSub: "راسلنا، نقرأ كل رسالة.", finalBtn: "راسلنا",
             navSupport: "المساعدة", navPrivacy: "الخصوصية", navContact: "اتصل بنا",
             credit: "العرض محسوب بمكتبة adhan المفتوحة المصدر (رخصة MIT)، وهي نفسها المستخدمة في التطبيق. المواقيت تقريبية: تحقق منها لدى مسجدك.",
             fajr: "الفجر", sunrise: "الشروق", dhuhr: "الظهر", asr: "العصر", maghrib: "المغرب", isha: "العشاء",
-            myPosCity: "موقعي", geoDenied: "تعذّر تحديد الموقع. اختر مدينة.", tomorrow: "غدًا"
+            myPosCity: "موقعي", geoDenied: "تعذّر تحديد الموقع. اختر مدينة.", tomorrow: "غدًا",
+            today: "اليوم", yesterday: "أمس", tomorrowCap: "غدًا",
+            step: "المرحلة {a} من 4", rounds: "الدورات: {n}", done100: "اكتملت المئة",
+            inDays: "يوم", todayShort: "اليوم", calToday: "اليوم هو {h}.",
+            asrStd: "العصر: الجمهور", asrHan: "العصر: الحنفي",
+            m_mwl: "رابطة العالم الإسلامي", m_egyptian: "الهيئة المصرية العامة للمساحة", m_ummAlQura: "جامعة أم القرى", m_karachi: "جامعة العلوم الإسلامية بكراتشي", m_northAmerica: "أمريكا الشمالية / ISNA", m_moonsighting: "لجنة رؤية الهلال", m_turkey: "رئاسة الشؤون الدينية التركية (ديانت)", m_france12: "فرنسا / بلجيكا – 12°",
+            ev_muharramFirst: "١ محرّم", ev_muharramFirstD: "رأس السنة الهجرية",
+            ev_muharramTenth: "١٠ محرّم", ev_muharramTenthD: "يوم عاشوراء",
+            ev_ramadanFirst: "بداية رمضان", ev_ramadanFirstD: "١ رمضان",
+            ev_shawwalFirst: "١ شوّال", ev_shawwalFirstD: "عيد الفطر",
+            ev_dhuAlHijjahNinth: "٩ ذو الحجة", ev_dhuAlHijjahNinthD: "يوم عرفة",
+            ev_dhuAlHijjahTenth: "١٠ ذو الحجة", ev_dhuAlHijjahTenthD: "عيد الأضحى"
           }
         };
         var nodes = document.querySelectorAll("[data-i18n]");
-        var fr = { _title: document.title, fajr: "Fajr", sunrise: "Lever du soleil", dhuhr: "Dhuhr", asr: "Asr", maghrib: "Maghrib", isha: "Isha", myPosCity: "Ma position", geoDenied: "Position indisponible. Choisissez plutôt une ville.", tomorrow: "demain" };
-        nodes.forEach(function (n) { fr[n.getAttribute("data-i18n")] = n.textContent; });
+        var fr = {
+          _title: document.title,
+          fajr: "Fajr", sunrise: "Lever du soleil", dhuhr: "Dohr", asr: "Asr", maghrib: "Maghrib", isha: "Isha",
+          myPosCity: "Ma position", geoDenied: "Position indisponible. Choisissez plutôt une ville.", tomorrow: "demain",
+          today: "Aujourd’hui", yesterday: "Hier", tomorrowCap: "Demain",
+          step: "Étape {a} sur 4", rounds: "Tours terminés : {n}", done100: "Les 100 sont terminés",
+          inDays: "jours", todayShort: "aujourd’hui", calToday: "Nous sommes le {h}.",
+          asrStd: "Asr : standard", asrHan: "Asr : hanafite",
+          m_mwl: "Ligue Islamique Mondiale", m_egyptian: "Autorité générale égyptienne des relevés", m_ummAlQura: "Université Umm al-Qura", m_karachi: "Université des sciences islamiques de Karachi", m_northAmerica: "Amérique du Nord / ISNA", m_moonsighting: "Moonsighting Committee", m_turkey: "Diyanet (Turquie)", m_france12: "France / Belgique – 12°",
+          ev_muharramFirst: "1 Mouharram", ev_muharramFirstD: "Nouvel an hégirien",
+          ev_muharramTenth: "10 Mouharram", ev_muharramTenthD: "Jour de Achoura",
+          ev_ramadanFirst: "Début du Ramadan", ev_ramadanFirstD: "1 Ramadan",
+          ev_shawwalFirst: "1 Shawwāl", ev_shawwalFirstD: "Aïd al-Fitr",
+          ev_dhuAlHijjahNinth: "9 Dhū al-hijja", ev_dhuAlHijjahNinthD: "Jour de Arafat",
+          ev_dhuAlHijjahTenth: "10 Dhū al-hijja", ev_dhuAlHijjahTenthD: "Aïd al-Adha"
+        };
+        nodes.forEach(function (n) { var k = n.getAttribute("data-i18n"); if (fr[k] == null) fr[k] = n.textContent; });
         T.fr = fr;
         var lang = "fr";
-        function t(k) { return (T[lang] && T[lang][k] != null) ? T[lang][k] : fr[k]; }
+        function t(k, v) {
+          var s = (T[lang] && T[lang][k] != null) ? T[lang][k] : fr[k];
+          if (v) Object.keys(v).forEach(function (x) { s = s.replace("{" + x + "}", v[x]); });
+          return s;
+        }
+        var $ = function (id) { return document.getElementById(id); };
+        var hasAdhan = typeof window.adhan !== "undefined";
 
-        /* ---------- Formules du tasbih (reprises telles quelles de l'application) ---------- */
-        var PHRASES = [
-          { ar: "سُبْحَانَ اللَّهِ", tr: "Subḥāna Allāh", fr: "Gloire à Allah", en: "Glory be to Allah" },
-          { ar: "الْحَمْدُ لِلَّهِ", tr: "Al-ḥamdu lillāh", fr: "Louange à Allah", en: "Praise be to Allah" },
-          { ar: "اللَّهُ أَكْبَرُ", tr: "Allāhu akbar", fr: "Allah est le plus Grand", en: "Allah is the Greatest" }
-        ];
+        /* ---------- Formules du tasbih : copiées telles quelles de l'app (src/data/tasbih/phrases.ts) ---------- */
+        var P = {"subhanallah":{"id":"subhanallah","arabic":"سُبْحَانَ اللَّهِ","transliteration":"Subḥāna Allāh","meaning":{"fr":"Gloire à Allah","en":"Glory be to Allah"}},"alhamdulillah":{"id":"alhamdulillah","arabic":"الْحَمْدُ لِلَّهِ","transliteration":"Al-ḥamdu lillāh","meaning":{"fr":"Louange à Allah","en":"Praise be to Allah"}},"allahuakbar":{"id":"allahuakbar","arabic":"اللَّهُ أَكْبَرُ","transliteration":"Allāhu akbar","meaning":{"fr":"Allah est le plus Grand","en":"Allah is the Greatest"}},"tahlil":{"id":"tahlil","arabic":"لَا إِلَٰهَ إِلَّا اللَّهُ","transliteration":"Lā ilāha illā Allāh","meaning":{"fr":"Il n’y a de divinité qu’Allah","en":"There is no god but Allah"}},"tahlilComplete":{"id":"tahlilComplete","arabic":"لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ","transliteration":"Lā ilāha illā Allāhu waḥdahu lā sharīka lah, lahu-l-mulku wa lahu-l-ḥamdu wa huwa ʿalā kulli shayʾin qadīr","meaning":{"fr":"Il n’y a de divinité qu’Allah, Seul, sans associé. À Lui la royauté, à Lui la louange, et Il est capable de toute chose.","en":"There is no god but Allah alone, without partner. His is the dominion and His is the praise, and He is capable of all things."}},"astaghfirullah":{"id":"astaghfirullah","arabic":"أَسْتَغْفِرُ اللَّهَ","transliteration":"Astaghfiru Allāh","meaning":{"fr":"Je demande pardon à Allah","en":"I seek Allah’s forgiveness"}},"subhanallahWaBihamdihi":{"id":"subhanallahWaBihamdihi","arabic":"سُبْحَانَ اللَّهِ وَبِحَمْدِهِ","transliteration":"Subḥāna Allāhi wa bi-ḥamdih","meaning":{"fr":"Gloire et louange à Allah","en":"Glory and praise be to Allah"}},"salawat":{"id":"salawat","arabic":"اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ","transliteration":"Allāhumma ṣalli ʿalā Muḥammad","meaning":{"fr":"Ô Allah, prie sur Muhammad ﷺ","en":"O Allah, send blessings upon Muhammad ﷺ"}}};
+        var FREE_IDS = ["subhanallah", "alhamdulillah", "allahuakbar", "tahlil", "astaghfirullah", "subhanallahWaBihamdihi", "salawat"];
 
         /* ---------- Villes ---------- */
         var CITIES = [
           { id: "verviers", fr: "Verviers", ar: "فيرفييه", lat: 50.5891, lng: 5.8622, tz: "Europe/Brussels" },
           { id: "bruxelles", fr: "Bruxelles", en: "Brussels", ar: "بروكسل", lat: 50.8503, lng: 4.3517, tz: "Europe/Brussels" },
           { id: "liege", fr: "Liège", ar: "لييج", lat: 50.6326, lng: 5.5797, tz: "Europe/Brussels" },
+          { id: "anvers", fr: "Anvers", en: "Antwerp", ar: "أنتويرب", lat: 51.2194, lng: 4.4025, tz: "Europe/Brussels" },
           { id: "paris", fr: "Paris", ar: "باريس", lat: 48.8566, lng: 2.3522, tz: "Europe/Paris" },
+          { id: "lyon", fr: "Lyon", ar: "ليون", lat: 45.764, lng: 4.8357, tz: "Europe/Paris" },
           { id: "marseille", fr: "Marseille", ar: "مرسيليا", lat: 43.2965, lng: 5.3698, tz: "Europe/Paris" },
           { id: "london", fr: "Londres", en: "London", ar: "لندن", lat: 51.5074, lng: -0.1278, tz: "Europe/London" },
+          { id: "amsterdam", fr: "Amsterdam", ar: "أمستردام", lat: 52.3676, lng: 4.9041, tz: "Europe/Amsterdam" },
           { id: "montreal", fr: "Montréal", en: "Montreal", ar: "مونتريال", lat: 45.5019, lng: -73.5674, tz: "America/Toronto" },
           { id: "casablanca", fr: "Casablanca", ar: "الدار البيضاء", lat: 33.5731, lng: -7.5898, tz: "Africa/Casablanca" },
           { id: "alger", fr: "Alger", en: "Algiers", ar: "الجزائر", lat: 36.7538, lng: 3.0588, tz: "Africa/Algiers" },
@@ -582,113 +885,147 @@
           { id: "medina", fr: "Médine", en: "Medina", ar: "المدينة المنورة", lat: 24.4672, lng: 39.6112, tz: "Asia/Riyadh" },
           { id: "jakarta", fr: "Jakarta", ar: "جاكرتا", lat: -6.2088, lng: 106.8456, tz: "Asia/Jakarta" }
         ];
-        function cityName(c) { return c[lang] || c.fr; }
-        var place = CITIES[0];
-        var hasAdhan = typeof window.adhan !== "undefined";
+        var METHODS = ["mwl", "france12", "turkey", "egyptian", "ummAlQura", "karachi", "northAmerica", "moonsighting"];
+        function cityName(c) { return c.id === "me" ? t("myPosCity") : (c[lang] || c.fr); }
+        var place = CITIES[0], method = "mwl", asr = "standard", dayOffset = 0;
 
-        var $ = function (id) { return document.getElementById(id); };
-        var citySel = $("citySel");
-        function fillCities() {
-          var cur = citySel.value || place.id;
-          citySel.innerHTML = "";
-          CITIES.forEach(function (c) {
-            var o = document.createElement("option");
-            o.value = c.id; o.textContent = cityName(c);
-            citySel.appendChild(o);
-          });
-          if (place.id === "me") {
-            var o = document.createElement("option");
-            o.value = "me"; o.textContent = t("myPosCity");
-            citySel.appendChild(o);
-          }
-          citySel.value = place.id === "me" ? "me" : cur;
+        var citySel = $("citySel"), methodSel = $("methodSel"), asrSel = $("asrSel");
+        function fillSelect(sel, items, value) {
+          sel.innerHTML = "";
+          items.forEach(function (it) { var o = document.createElement("option"); o.value = it[0]; o.textContent = it[1]; sel.appendChild(o); });
+          sel.value = value;
+        }
+        function fillControls() {
+          var cities = CITIES.map(function (c) { return [c.id, cityName(c)]; });
+          if (place.id === "me") cities.push(["me", t("myPosCity")]);
+          fillSelect(citySel, cities, place.id);
+          fillSelect(methodSel, METHODS.map(function (m) { return [m, t("m_" + m)]; }), method);
+          fillSelect(asrSel, [["standard", t("asrStd")], ["hanafi", t("asrHan")]], asr);
         }
 
-        /* ---------- Horaires en direct ---------- */
+        /* ---------- Horaires ---------- */
         var KEYS = ["fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"];
+        var bells = { fajr: true, dhuhr: true, asr: true, maghrib: true, isha: true };
         function locale() { return lang === "ar" ? "ar-u-nu-latn" : lang === "en" ? "en-GB" : "fr-FR"; }
         function fmt(d) { return new Intl.DateTimeFormat(locale(), { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: place.tz }).format(d); }
-        function dayIn(tz, offsetDays) {
+        function dayIn(tz, offset) {
           var p = {};
           new Intl.DateTimeFormat("en-CA", { timeZone: tz, year: "numeric", month: "numeric", day: "numeric" }).formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
-          return new Date(+p.year, +p.month - 1, +p.day + (offsetDays || 0));
+          return new Date(+p.year, +p.month - 1, +p.day + (offset || 0), 12);
+        }
+        function params(c) {
+          var p;
+          if (method === "france12") { p = adhan.CalculationMethod.Other(); p.fajrAngle = 12; p.ishaAngle = 12; }
+          else p = adhan.CalculationMethod[{ mwl: "MuslimWorldLeague", turkey: "Turkey", egyptian: "Egyptian", ummAlQura: "UmmAlQura", karachi: "Karachi", northAmerica: "NorthAmerica", moonsighting: "MoonsightingCommittee" }[method]]();
+          p.madhab = asr === "hanafi" ? adhan.Madhab.Hanafi : adhan.Madhab.Shafi;
+          p.highLatitudeRule = adhan.HighLatitudeRule.recommended(c);
+          return p;
         }
         function timesFor(offset) {
           var c = new adhan.Coordinates(place.lat, place.lng);
-          var params = adhan.CalculationMethod.MuslimWorldLeague();
-          params.madhab = adhan.Madhab.Shafi;
-          params.highLatitudeRule = adhan.HighLatitudeRule.recommended(c);
-          return new adhan.PrayerTimes(c, dayIn(place.tz, offset), params);
+          return new adhan.PrayerTimes(c, dayIn(place.tz, offset), params(c));
         }
         var today = null, tomorrow = null;
-        function compute() {
-          if (!hasAdhan) return;
-          today = timesFor(0); tomorrow = timesFor(1);
+        function bellSvg() { return '<svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>'; }
+        function renderDay() {
+          var pt = timesFor(dayOffset);
           var rows = $("rows"); rows.innerHTML = "";
           KEYS.forEach(function (k) {
             var r = document.createElement("div");
-            r.className = "row"; r.dataset.k = k;
-            r.innerHTML = "<span></span><span></span>";
-            r.firstChild.textContent = t(k);
-            r.lastChild.textContent = fmt(today[k]);
+            r.className = "row" + (k === "sunrise" ? " sun" : ""); r.dataset.k = k;
+            var nm = document.createElement("span"); nm.className = "nm"; nm.textContent = t(k);
+            var tm = document.createElement("span"); tm.textContent = fmt(pt[k]);
+            var b = document.createElement("button"); b.type = "button"; b.className = "bell"; b.innerHTML = bellSvg();
+            b.setAttribute("aria-pressed", String(!!bells[k])); b.setAttribute("aria-label", t(k));
+            b.addEventListener("click", function () { bells[k] = !bells[k]; b.setAttribute("aria-pressed", String(bells[k])); });
+            r.appendChild(nm); r.appendChild(tm); r.appendChild(b);
             rows.appendChild(r);
           });
-          $("scrCity").textContent = place.id === "me" ? t("myPosCity") : cityName(place);
+          var lbl = dayOffset === 0 ? t("today") : dayOffset === -1 ? t("yesterday") : dayOffset === 1 ? t("tomorrowCap") : "";
+          var d = dayIn(place.tz, dayOffset);
+          var long = new Intl.DateTimeFormat(locale(), { weekday: "long", day: "numeric", month: "long" }).format(d);
+          $("dayLabel").textContent = lbl || long;
+          $("dayDate").textContent = lbl ? long : hijriLong(d);
+          $("methodFoot").textContent = t("m_" + method) + " · " + (asr === "hanafi" ? t("asrHan") : t("asrStd"));
+          markRows();
+        }
+        function hijriLong(d) {
           try {
-            $("scrHijri").textContent = new Intl.DateTimeFormat((lang === "ar" ? "ar-SA" : lang === "en" ? "en-GB" : "fr-FR") + "-u-ca-islamic-umalqura-nu-latn", { day: "numeric", month: "long", year: "numeric", timeZone: place.tz }).format(new Date());
-          } catch (e) { $("scrHijri").textContent = ""; }
+            return new Intl.DateTimeFormat((lang === "ar" ? "ar-SA" : lang === "en" ? "en-GB" : "fr-FR") + "-u-ca-islamic-umalqura-nu-latn", { day: "numeric", month: "long", year: "numeric" }).format(d);
+          } catch (e) { return ""; }
+        }
+        function compute() {
+          if (!hasAdhan) return;
+          today = timesFor(0); tomorrow = timesFor(1);
+          var nm = cityName(place);
+          $("cityHome").textContent = nm; $("cityTimes").textContent = nm; $("cityQibla").textContent = nm;
+          var d0 = dayIn(place.tz, 0);
+          $("gregDate").textContent = new Intl.DateTimeFormat(locale(), { weekday: "long", day: "numeric", month: "long" }).format(d0);
+          $("hijriDate").textContent = hijriLong(d0);
           var deg = Math.round(adhan.Qibla(new adhan.Coordinates(place.lat, place.lng)));
           $("needle").style.transform = "rotate(" + deg + "deg)";
           $("qiblaDeg").textContent = deg + "°";
-          tick();
+          renderDay(); tick();
         }
         function pad(n) { return (n < 10 ? "0" : "") + n; }
+        var nextKey = null, isTomorrow = false;
+        function markRows() {
+          var now = new Date();
+          document.querySelectorAll("#rows .row").forEach(function (r) {
+            var k = r.dataset.k;
+            r.classList.toggle("on", dayOffset === 0 && !isTomorrow && k === nextKey);
+            r.classList.toggle("past", dayOffset < 0 || (dayOffset === 0 && (isTomorrow || today[k] <= now)));
+          });
+        }
         function tick() {
           if (!today) return;
-          var now = new Date(), next = null, prev = null, nextKey = null;
+          var now = new Date(), next = null, prev = null;
+          nextKey = null; isTomorrow = false;
           for (var i = 0; i < KEYS.length; i++) {
             if (today[KEYS[i]] > now) { next = today[KEYS[i]]; nextKey = KEYS[i]; prev = i ? today[KEYS[i - 1]] : null; break; }
           }
-          var isTomorrow = false;
           if (!next) {
-            if (today.isha <= now && tomorrow.fajr <= now) { compute(); return; }
+            if (tomorrow.fajr <= now) { compute(); return; }
             next = tomorrow.fajr; nextKey = "fajr"; prev = today.isha; isTomorrow = true;
           }
           if (!prev) prev = new Date(today.fajr.getTime() - 6 * 3600 * 1000);
           var s = Math.max(0, Math.floor((next - now) / 1000));
           $("countdown").textContent = pad(Math.floor(s / 3600)) + ":" + pad(Math.floor(s / 60) % 60) + ":" + pad(s % 60);
-          $("nextName").textContent = t(nextKey) + (isTomorrow ? " · " + t("tomorrow") : "");
-          var pct = Math.min(100, Math.max(0, (now - prev) / (next - prev) * 100));
-          $("progress").style.width = pct + "%";
-          document.querySelectorAll("#rows .row").forEach(function (r) {
-            r.classList.toggle("on", !isTomorrow && r.dataset.k === nextKey);
-            r.classList.toggle("past", !isTomorrow ? today[r.dataset.k] <= now : true);
-          });
+          $("nextName").textContent = t(nextKey) + " · " + fmt(next) + (isTomorrow ? " · " + t("tomorrow") : "");
+          $("progress").style.width = Math.min(100, Math.max(0, (now - prev) / (next - prev) * 100)) + "%";
+          markRows();
         }
         setInterval(tick, 1000);
 
         citySel.addEventListener("change", function () {
           var c = CITIES.filter(function (x) { return x.id === citySel.value; })[0];
-          if (c) { place = c; fillCities(); compute(); }
+          if (c) { place = c; dayOffset = 0; fillControls(); compute(); }
         });
+        methodSel.addEventListener("change", function () { method = methodSel.value; compute(); showPane("times"); });
+        asrSel.addEventListener("change", function () { asr = asrSel.value; compute(); showPane("times"); });
+        $("dayPrev").addEventListener("click", function () { if (dayOffset > -7) { dayOffset--; renderDay(); } });
+        $("dayNext").addEventListener("click", function () { if (dayOffset < 30) { dayOffset++; renderDay(); } });
         $("geoBtn").addEventListener("click", function () {
           if (!navigator.geolocation) { $("demoNote").textContent = t("geoDenied"); return; }
           navigator.geolocation.getCurrentPosition(function (pos) {
             var tz = "UTC";
             try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC"; } catch (e) {}
-            place = { id: "me", lat: pos.coords.latitude, lng: pos.coords.longitude, tz: tz };
-            fillCities(); compute(); showPane("times");
+            place = { id: "me", lat: Math.round(pos.coords.latitude * 100) / 100, lng: Math.round(pos.coords.longitude * 100) / 100, tz: tz };
+            dayOffset = 0; fillControls(); compute(); showPane("home");
           }, function () { $("demoNote").textContent = t("geoDenied"); }, { timeout: 10000, maximumAge: 600000 });
         });
 
-        /* ---------- Onglets du téléphone ---------- */
+        /* ---------- Onglets ---------- */
         var userTouched = false;
         function showPane(name) {
           document.querySelectorAll(".tabs button").forEach(function (b) { b.setAttribute("aria-selected", String(b.dataset.pane === name)); });
           document.querySelectorAll(".pane").forEach(function (p) { p.classList.toggle("active", p.id === "pane-" + name); });
         }
-        document.querySelectorAll(".tabs button").forEach(function (b) {
+        document.querySelectorAll(".tabs button, .shortcuts button[data-pane]").forEach(function (b) {
           b.addEventListener("click", function () { userTouched = true; showPane(b.dataset.pane); });
+        });
+        document.querySelectorAll("[data-scroll]").forEach(function (b) {
+          b.addEventListener("click", function () { userTouched = true; $(b.dataset.scroll).scrollIntoView({ behavior: "smooth" }); });
         });
         document.querySelectorAll("[data-go]").forEach(function (b) {
           b.addEventListener("click", function () {
@@ -696,50 +1033,103 @@
             $("demo").scrollIntoView({ behavior: "smooth", block: "center" });
           });
         });
-        // Fait défiler les onglets tout seul tant que le visiteur n'a pas touché le téléphone
-        var order = ["times", "qibla", "tasbih"], idx = 0;
+        document.querySelectorAll("#phone, .controls").forEach(function (el) {
+          el.addEventListener("pointerdown", function () { userTouched = true; });
+        });
+        var order = ["home", "times", "qibla", "tasbih"], idx = 0;
         setInterval(function () {
           if (userTouched || document.hidden) return;
           idx = (idx + 1) % order.length; showPane(order[idx]);
         }, 5000);
 
-        /* ---------- Tasbih ---------- */
-        var count = 0, phrase = 0, GOAL = 33, CIRC = 339.3;
+        /* ---------- Dhikr du jour (même règle que l'app : un par jour, à tour de rôle) ---------- */
+        function phraseOfDay() {
+          var d = dayIn(place.tz, 0);
+          var idx = Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000);
+          return FREE_IDS[idx % FREE_IDS.length];
+        }
+        function drawDod() {
+          var p = P[phraseOfDay()];
+          $("dodAr").textContent = p.arabic;
+          $("dodTr").textContent = p.transliteration;
+        }
+        function openDod() { userTouched = true; mode = "free"; freeIdx = FREE_IDS.indexOf(phraseOfDay()); count = 0; rounds = 0; drawTasbih(); showPane("tasbih"); }
+        $("dod").addEventListener("click", openDod);
+        $("dod").addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openDod(); } });
+
+        /* ---------- Tasbih : mode après la prière (33, 33, 33, 1) ou formule libre ---------- */
+        var mode = "after", count = 0, freeIdx = 0, rounds = 0, locked = false, CIRC = 339.3, FREE_TARGET = 33;
+        function afterStep(c) {
+          if (c < 33) return { id: "subhanallah", step: 1, done: c, size: 33 };
+          if (c < 66) return { id: "alhamdulillah", step: 2, done: c - 33, size: 33 };
+          if (c < 99) return { id: "allahuakbar", step: 3, done: c - 66, size: 33 };
+          return { id: "tahlilComplete", step: 4, done: c - 99, size: 1 };
+        }
         function drawTasbih() {
-          var p = PHRASES[phrase];
-          $("phAr").textContent = p.ar;
-          $("phTr").textContent = p.tr;
-          $("phMean").textContent = lang === "ar" ? "" : p[lang] || p.fr;
-          $("count").textContent = count;
-          $("ring").style.strokeDashoffset = CIRC * (1 - count / GOAL);
+          var id, done, size;
+          if (mode === "after") { var s = afterStep(count); id = s.id; done = s.done; size = s.size; $("step").textContent = count >= 100 ? t("done100") : t("step", { a: s.step }); }
+          else { id = FREE_IDS[freeIdx]; done = count; size = FREE_TARGET; $("step").textContent = ""; }
+          if (mode === "after" && count >= 100) { id = "tahlilComplete"; done = 1; size = 1; }
+          var p = P[id];
+          $("phAr").textContent = p.arabic;
+          $("phAr").classList.toggle("long", p.arabic.length > 40);
+          $("phTr").textContent = p.arabic.length > 40 ? "" : p.transliteration;
+          $("phMean").textContent = lang === "ar" || p.arabic.length > 40 ? "" : p.meaning[lang] || p.meaning.fr;
+          $("count").textContent = mode === "after" ? count : done;
+          $("ring").style.strokeDashoffset = CIRC * (1 - done / size);
+          $("rounds").textContent = t("rounds", { n: rounds });
+          $("phPrev").hidden = $("phNext").hidden = mode !== "free";
+          document.querySelectorAll(".seg button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.mode === mode)); });
         }
         function burst() {
           var bead = $("bead");
           for (var i = 0; i < 14; i++) {
             var s = document.createElement("span"), a = (i / 14) * Math.PI * 2;
             s.className = "burst";
-            s.style.setProperty("--x", Math.cos(a) * 90 + "px");
-            s.style.setProperty("--y", Math.sin(a) * 90 + "px");
+            s.style.setProperty("--x", Math.cos(a) * 85 + "px");
+            s.style.setProperty("--y", Math.sin(a) * 85 + "px");
             bead.appendChild(s);
             setTimeout(function (el) { el.remove(); }, 850, s);
           }
         }
-        var locked = false;
+        function buzz(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
         $("bead").addEventListener("click", function () {
           userTouched = true;
           if (locked) return;
           count++;
-          try { if (navigator.vibrate) navigator.vibrate(count === GOAL ? [30, 40, 30] : 8); } catch (e) {}
+          var goal = false;
+          if (mode === "after") goal = count === 33 || count === 66 || count === 99 || count === 100;
+          else goal = count === FREE_TARGET;
+          buzz(goal ? [30, 40, 30] : 8);
           drawTasbih();
-          if (count >= GOAL) {
-            // Pause courte sur le cercle complet, puis formule suivante
-            locked = true; burst();
-            setTimeout(function () { count = 0; phrase = (phrase + 1) % PHRASES.length; locked = false; drawTasbih(); }, 650);
+          if (goal) {
+            burst();
+            if (mode === "free" || count === 100) {
+              locked = true;
+              setTimeout(function () { count = 0; rounds++; locked = false; drawTasbih(); }, 900);
+            }
           }
         });
-        $("reset").addEventListener("click", function () { userTouched = true; count = 0; phrase = 0; drawTasbih(); });
+        $("reset").addEventListener("click", function () { userTouched = true; count = 0; rounds = 0; drawTasbih(); });
+        document.querySelectorAll(".seg button").forEach(function (b) {
+          b.addEventListener("click", function () { mode = b.dataset.mode; count = 0; drawTasbih(); });
+        });
+        $("phPrev").addEventListener("click", function () { freeIdx = (freeIdx + FREE_IDS.length - 1) % FREE_IDS.length; count = 0; drawTasbih(); });
+        $("phNext").addEventListener("click", function () { freeIdx = (freeIdx + 1) % FREE_IDS.length; count = 0; drawTasbih(); });
 
-        /* ---------- Boussole : graduations ---------- */
+        /* ---------- Thèmes de l'app ---------- */
+        var THEME_NAMES = { fr: { dark: "Nuit dorée", light: "Clair", emerald: "Émeraude", sand: "Sable", black: "Noir" }, en: { dark: "Golden night", light: "Light", emerald: "Emerald", sand: "Sand", black: "Black" }, ar: { dark: "ليل ذهبي", light: "فاتح", emerald: "زمردي", sand: "رملي", black: "أسود" } };
+        document.querySelectorAll(".sw").forEach(function (b) {
+          b.addEventListener("click", function () {
+            $("phone").setAttribute("data-theme", b.dataset.theme);
+            document.querySelectorAll(".sw").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+          });
+        });
+        function labelSwatches() {
+          document.querySelectorAll(".sw").forEach(function (b) { var n = THEME_NAMES[lang][b.dataset.theme]; b.title = n; b.setAttribute("aria-label", n); });
+        }
+
+        /* ---------- Boussole ---------- */
         (function () {
           var comp = $("compass");
           for (var i = 0; i < 36; i++) {
@@ -750,22 +1140,58 @@
           }
         })();
 
+        /* ---------- Calendrier : prochains repères (Umm al-Qura) ---------- */
+        var EVENTS = [
+          { id: "muharramFirst", m: 1, d: 1 }, { id: "muharramTenth", m: 1, d: 10 }, { id: "ramadanFirst", m: 9, d: 1 },
+          { id: "shawwalFirst", m: 10, d: 1 }, { id: "dhuAlHijjahNinth", m: 12, d: 9 }, { id: "dhuAlHijjahTenth", m: 12, d: 10 }
+        ];
+        var hijriFmt = null;
+        try { hijriFmt = new Intl.DateTimeFormat("en-u-ca-islamic-umalqura-nu-latn", { day: "numeric", month: "numeric", year: "numeric", timeZone: "UTC" }); } catch (e) {}
+        function hParts(d) {
+          var o = {};
+          hijriFmt.formatToParts(d).forEach(function (x) { o[x.type] = x.value; });
+          return { m: parseInt(o.month, 10), d: parseInt(o.day, 10) };
+        }
+        var found = null;
+        function findEvents() {
+          if (!hijriFmt) return [];
+          var now = new Date(), base = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 12), res = {};
+          for (var i = 0; i < 400 && Object.keys(res).length < EVENTS.length; i++) {
+            var d = new Date(base + i * 86400000), h = hParts(d);
+            EVENTS.forEach(function (e) { if (!res[e.id] && h.m === e.m && h.d === e.d) res[e.id] = { id: e.id, date: d, days: i }; });
+          }
+          return Object.keys(res).map(function (k) { return res[k]; }).sort(function (a, b) { return a.days - b.days; });
+        }
+        function renderEvents() {
+          if (!found) found = findEvents();
+          var box = $("events"); box.innerHTML = "";
+          found.forEach(function (e, i) {
+            var el = document.createElement("div");
+            el.className = "event" + (i === 0 ? " next" : "");
+            var dateTxt = new Intl.DateTimeFormat(locale(), { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(e.date);
+            el.innerHTML = '<div class="days"><b></b><small></small></div><div style="min-width:0"><h3></h3><p class="ev-d"></p><p class="ev-g"></p></div>';
+            el.querySelector("b").textContent = e.days === 0 ? "✓" : e.days;
+            el.querySelector("small").textContent = e.days === 0 ? t("todayShort") : t("inDays");
+            el.querySelector("h3").textContent = t("ev_" + e.id);
+            el.querySelector(".ev-d").textContent = t("ev_" + e.id + "D");
+            el.querySelector(".ev-g").textContent = dateTxt;
+            box.appendChild(el);
+          });
+          var hTxt = hijriLong(new Date());
+          $("calToday").textContent = hTxt ? t("calToday", { h: hTxt }) : "";
+        }
+
         /* ---------- Langue ---------- */
         function apply(l) {
           lang = T[l] ? l : "fr";
           var d = T[lang];
-          nodes.forEach(function (n) {
-            var k = n.getAttribute("data-i18n");
-            if (d[k] != null) n.textContent = d[k];
-          });
+          nodes.forEach(function (n) { var k = n.getAttribute("data-i18n"); if (d[k] != null) n.textContent = d[k]; });
           document.title = d._title;
           document.documentElement.lang = lang;
           document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-          document.querySelectorAll(".langs button").forEach(function (b) {
-            b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang));
-          });
+          document.querySelectorAll(".langs button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang)); });
           try { localStorage.setItem("dhikr-lang", lang); } catch (e) {}
-          fillCities(); compute(); drawTasbih();
+          fillControls(); labelSwatches(); compute(); drawDod(); drawTasbih(); renderEvents();
         }
         document.querySelectorAll(".langs button").forEach(function (b) {
           b.addEventListener("click", function () { apply(b.getAttribute("data-lang")); });
@@ -773,15 +1199,12 @@
 
         /* ---------- Effets visuels ---------- */
         var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-        // En-tête au défilement
         var hdr = $("hdr");
         window.addEventListener("scroll", function () { hdr.classList.toggle("scrolled", window.scrollY > 10); }, { passive: true });
 
-        // Apparition des sections + compteurs
         function countUp(el) {
           var target = +el.dataset.count, suffix = el.dataset.suffix || "";
-          if (reduce || target === 0) { el.textContent = target + suffix; return; }
+          if (reduce) { el.textContent = target + suffix; return; }
           var start = performance.now();
           (function step(now) {
             var k = Math.min(1, (now - start) / 1400);
@@ -797,13 +1220,12 @@
               e.target.querySelectorAll("[data-count]").forEach(countUp);
               io.unobserve(e.target);
             });
-          }, { threshold: 0.12 });
+          }, { threshold: 0.1 });
           document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
         } else {
           document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
         }
 
-        // Halo qui suit la souris sur les cartes
         document.querySelectorAll(".card").forEach(function (c) {
           c.addEventListener("pointermove", function (e) {
             var r = c.getBoundingClientRect();
@@ -812,7 +1234,6 @@
           });
         });
 
-        // Téléphone qui s'incline avec la souris
         var phone = $("phone");
         if (!reduce && window.matchMedia("(hover: hover)").matches) {
           document.addEventListener("pointermove", function (e) {
@@ -823,7 +1244,7 @@
 
         // Ciel étoilé animé
         (function () {
-          var cv = $("sky"), ctx = cv.getContext("2d"), stars = [], shooting = null, W, H, dpr;
+          var cv = $("sky"), ctx = cv.getContext("2d"), stars = [], shooting = null, W, H, dpr, scrollY = 0;
           function size() {
             dpr = Math.min(window.devicePixelRatio || 1, 2);
             W = window.innerWidth; H = window.innerHeight;
@@ -834,8 +1255,7 @@
             for (var i = 0; i < n; i++) stars.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.2 + .2, p: Math.random() * Math.PI * 2, s: Math.random() * .02 + .005, gold: Math.random() < .12 });
           }
           size();
-          window.addEventListener("resize", size);
-          var scrollY = 0;
+          window.addEventListener("resize", function () { size(); if (reduce) frame(); });
           window.addEventListener("scroll", function () { scrollY = window.scrollY; }, { passive: true });
           function frame() {
             ctx.clearRect(0, 0, W, H);
@@ -866,7 +1286,6 @@
             }
           }
           frame();
-          if (reduce) window.addEventListener("resize", frame);
         })();
 
         /* ---------- Démarrage ---------- */
@@ -874,7 +1293,7 @@
         try { saved = localStorage.getItem("dhikr-lang"); } catch (e) {}
         var nav = (navigator.language || "fr").slice(0, 2);
         apply(saved || (T[nav] ? nav : "fr"));
-        if (!hasAdhan) { $("demoNote").textContent = ""; }
+        if (!hasAdhan) $("demoNote").textContent = "";
       })();
     </script>
   </body>
