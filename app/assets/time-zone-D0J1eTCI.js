@@ -1,0 +1,1 @@
+function e(e){try{return new Intl.DateTimeFormat(`en`,{timeZone:e}).format(),!0}catch{return!1}}function t(){let t=Intl.DateTimeFormat().resolvedOptions().timeZone;return t&&e(t)?t:null}export{e as n,t};
