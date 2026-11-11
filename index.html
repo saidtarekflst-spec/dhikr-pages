@@ -58,6 +58,14 @@
       .btn:hover { transform: translateY(-2px); }
       .btn.primary { background: linear-gradient(135deg, var(--gold), var(--gold-2)); color: var(--night); border-color: transparent; box-shadow: 0 .6rem 1.6rem rgba(243, 213, 138, .25); }
       .btn.ghost { background: rgba(16, 47, 82, .6); color: var(--ivory); }
+      .menu a.app-link { color: var(--gold); }
+      .webapp { display: grid; grid-template-columns: 1.1fr .9fr; gap: 1.6rem; align-items: center; padding: 2rem; border-radius: 1.4rem; border: 1px solid var(--line); background: linear-gradient(135deg, rgba(16, 47, 82, .75), rgba(7, 26, 47, .6)); }
+      .webapp ul { margin: 1rem 0 0; padding: 0; list-style: none; display: grid; gap: .45rem; }
+      .webapp li { padding-inline-start: 1.5rem; position: relative; color: var(--muted); }
+      .webapp li::before { content: "✓"; position: absolute; inset-inline-start: 0; color: var(--gold); font-weight: 700; }
+      .webapp .side { display: grid; gap: .9rem; justify-items: start; }
+      .webapp .side p { margin: 0; color: var(--muted); font-size: .92rem; }
+      @media (max-width: 820px) { .webapp { grid-template-columns: 1fr; padding: 1.4rem; } }
       .stores { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.4rem; }
       .store { display: flex; align-items: center; gap: .6rem; padding: .55rem 1rem; border: 1px solid var(--line); border-radius: .85rem; background: rgba(16, 47, 82, .6); color: var(--ivory); min-width: 180px; }
       .store svg { width: 24px; height: 24px; flex: none; fill: var(--ivory); }
@@ -293,6 +301,7 @@
           <a href="#calendar" data-i18n="navCalendar">Calendrier</a>
           <a href="#privacy" data-i18n="navPrivacyShort">Vie privée</a>
           <a href="#faq" data-i18n="navFaq">Questions</a>
+          <a href="app/" class="app-link" data-i18n="navApp">Ouvrir l’app</a>
         </nav>
         <div class="langs" role="group" aria-label="Langue / Language / اللغة">
           <button type="button" data-lang="fr" aria-pressed="true">FR</button>
@@ -318,7 +327,8 @@
               <li data-i18n="hp5">FR · EN · AR</li>
             </ul>
             <div class="cta">
-              <a class="btn primary" href="#demo" data-i18n="ctaTry">Essayer ici, maintenant</a>
+              <a class="btn primary" href="app/" data-i18n="ctaApp">Utiliser Dhikr dans le navigateur</a>
+              <a class="btn ghost" href="#demo" data-i18n="ctaTry">Essayer ici, maintenant</a>
               <a class="btn ghost" href="#features" data-i18n="ctaMore">Toutes les fonctionnalités</a>
             </div>
             <div class="stores">
@@ -454,6 +464,32 @@
             <div><span class="n" data-count="13">13</span><span data-i18n="n3">catégories d’invocations</span></div>
             <div><span class="n" data-count="5">5</span><span data-i18n="n4">thèmes de couleurs</span></div>
             <div><span class="n" data-count="3">3</span><span data-i18n="n5">langues</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Version web : la vraie app dans le navigateur -->
+      <section class="block" id="web" style="padding-top:0">
+        <div class="wrap">
+          <div class="webapp reveal">
+            <div>
+              <div class="eyebrow" data-i18n="webEyebrow">Sans rien installer</div>
+              <h2 data-i18n="webTitle">Toute l’application, dans votre navigateur</h2>
+              <p class="sub" data-i18n="webSub">La version web est exactement la même application que sur iPhone et Android, avec les mêmes écrans et les mêmes textes.</p>
+              <ul>
+                <li data-i18n="web1">Horaires du jour et des jours suivants, compte à rebours, lever du soleil</li>
+                <li data-i18n="web2">Qibla, avec la boussole du téléphone quand elle est disponible</li>
+                <li data-i18n="web3">Les 97 invocations, par catégorie, avec recherche et compteur</li>
+                <li data-i18n="web4">Tasbih après la prière et formule libre</li>
+                <li data-i18n="web5">Calendrier hégirien et dates importantes</li>
+                <li data-i18n="web6">Réglages : position ou ville, 8 méthodes, Asr, hautes latitudes, thèmes, FR · EN · AR</li>
+              </ul>
+            </div>
+            <div class="side">
+              <a class="btn primary" href="app/" data-i18n="webBtn">Ouvrir Dhikr</a>
+              <p data-i18n="webNote1">Vos réglages restent dans votre navigateur. Rien n’est envoyé à un serveur Dhikr.</p>
+              <p data-i18n="webNote2">Seule différence : les rappels à l’heure de la prière et l’adhan ne fonctionnent que dans l’application mobile, car un navigateur ne peut pas sonner quand la page est fermée.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -642,6 +678,7 @@
             <details class="reveal"><summary data-i18n="fq3">Les horaires correspondent-ils à ma mosquée&nbsp;?</summary><p data-i18n="fa3">Choisissez dans les réglages la méthode de votre mosquée : 8 méthodes sont proposées, dont France / Belgique 12°, Diyanet et Ligue islamique mondiale, avec l’Asr standard ou hanafite. En cas de doute, comparez avec votre mosquée.</p></details>
             <details class="reveal"><summary data-i18n="fq4">Mes données sont-elles envoyées quelque part&nbsp;?</summary><p data-i18n="fa4">Non. Pas de compte, pas de serveur Dhikr. Votre position est arrondie et reste sur l’appareil. Vous pouvez aussi saisir votre ville à la main.</p></details>
             <details class="reveal"><summary data-i18n="fq5">Peut-on entendre l’adhan&nbsp;?</summary><p data-i18n="fa5">Oui, en option : le début de l’adhan (30 secondes au plus) peut remplacer le son du rappel à l’heure de la prière. Sur iPhone, le mode silencieux le coupe aussi.</p></details>
+            <details class="reveal"><summary data-i18n="fq7">Peut-on utiliser Dhikr sans installer l’application&nbsp;?</summary><p data-i18n="fa7">Oui. Ouvrez la version web depuis cette page : ce sont les mêmes écrans que dans l’app. Seuls les rappels de prière et l’adhan demandent l’application mobile.</p></details>
             <details class="reveal"><summary data-i18n="fq6">Quand sera-t-elle disponible&nbsp;?</summary><p data-i18n="fa6">L’application est en cours de publication sur l’App Store et Google Play. Les liens apparaîtront sur cette page.</p></details>
           </div>
         </div>
@@ -689,6 +726,15 @@
             lead: "Prayer times, Qibla, supplications, tasbih, Hijri calendar and reminders with adhan: Dhikr brings the essentials of your day together in a calm app that calculates everything on your phone. No account, no ads, even offline.",
             hp1: "Free", hp2: "Offline", hp3: "No account", hp4: "No ads", hp5: "FR · EN · AR",
             ctaTry: "Try it here, now", ctaMore: "All features",
+            navApp: "Open the app", ctaApp: "Use Dhikr in your browser",
+            webEyebrow: "Nothing to install", webTitle: "The whole app, in your browser",
+            webSub: "The web version is exactly the same app as on iPhone and Android, with the same screens and the same texts.",
+            web1: "Today’s and upcoming prayer times, countdown, sunrise", web2: "Qibla, with your phone’s compass when available",
+            web3: "All 97 supplications, by category, with search and counter", web4: "Tasbih after prayer and free phrase",
+            web5: "Hijri calendar and important dates", web6: "Settings: location or city, 8 methods, Asr, high latitudes, themes, FR · EN · AR",
+            webBtn: "Open Dhikr", webNote1: "Your settings stay in your browser. Nothing is sent to a Dhikr server.",
+            webNote2: "Only difference: prayer-time reminders and the adhan only work in the mobile app, because a browser cannot ring once the page is closed.",
+            fq7: "Can I use Dhikr without installing the app?", fa7: "Yes. Open the web version from this page: it has the same screens as the app. Only prayer reminders and the adhan need the mobile app.",
             soon: "Coming soon",
             storeNote: "The app is being published. Store links will appear here as soon as it is live.",
             mockNext: "Next prayer", dodTitle: "Dhikr of the day", dodGo: "Start on the tasbih", scCal: "Calendar",
@@ -764,6 +810,15 @@
             lead: "مواقيت الصلاة، والقبلة، والأدعية، والتسبيح، والتقويم الهجري، والتذكير مع الأذان: يجمع «ذِكْر» أساسيات يومك في تطبيق هادئ يحسب كل شيء على هاتفك. دون حساب، ودون إعلانات، حتى دون إنترنت.",
             hp1: "مجاني", hp2: "دون إنترنت", hp3: "دون حساب", hp4: "دون إعلانات", hp5: "FR · EN · AR",
             ctaTry: "جرّبه هنا الآن", ctaMore: "كل المزايا",
+            navApp: "افتح التطبيق", ctaApp: "استخدم Dhikr في المتصفح",
+            webEyebrow: "دون أي تثبيت", webTitle: "التطبيق كاملًا في متصفحك",
+            webSub: "النسخة الإلكترونية هي التطبيق نفسه الموجود على iPhone وAndroid، بالشاشات نفسها والنصوص نفسها.",
+            web1: "مواقيت اليوم والأيام التالية، والعدّ التنازلي، والشروق", web2: "القبلة، مع بوصلة الهاتف عند توفرها",
+            web3: "الأدعية الـ97 حسب الفئة، مع البحث والعدّاد", web4: "التسبيح بعد الصلاة وذكر حر",
+            web5: "التقويم الهجري والمناسبات المهمة", web6: "الإعدادات: الموقع أو المدينة، 8 طرق، العصر، خطوط العرض العليا، المظاهر، FR · EN · AR",
+            webBtn: "افتح Dhikr", webNote1: "تبقى إعداداتك في متصفحك. لا يُرسل أي شيء إلى خادم Dhikr.",
+            webNote2: "الفرق الوحيد: تنبيهات أوقات الصلاة والأذان تعمل في تطبيق الهاتف فقط، لأن المتصفح لا يستطيع التنبيه بعد إغلاق الصفحة.",
+            fq7: "هل يمكن استخدام Dhikr دون تثبيت التطبيق؟", fa7: "نعم. افتح النسخة الإلكترونية من هذه الصفحة: فيها الشاشات نفسها الموجودة في التطبيق. التنبيهات والأذان فقط تحتاج إلى تطبيق الهاتف.",
             soon: "قريبًا",
             storeNote: "التطبيق قيد النشر. ستظهر روابط المتاجر هنا فور إتاحته.",
             mockNext: "الصلاة القادمة", dodTitle: "ذكر اليوم", dodGo: "ابدأ بالتسبيح", scCal: "التقويم",

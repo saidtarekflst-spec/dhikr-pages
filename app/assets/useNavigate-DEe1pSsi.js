@@ -1,0 +1,1 @@
+import{Y as e,q as t,s as n}from"./use-localized-page-DN4hEbp8.js";var r=e(t(),1);function i(e){let t=n();return r.useCallback(n=>t.navigate({...n,from:n.from??e?.from}),[e?.from,t])}export{i as t};

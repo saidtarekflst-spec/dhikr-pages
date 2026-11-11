@@ -1,0 +1,1 @@
+import{Y as e,q as t}from"./use-localized-page-DN4hEbp8.js";var n=e(t(),1),r=(0,n.createContext)(null);function i(){let e=(0,n.useContext)(r);if(!e)throw Error(`usePreferences must be used inside PreferencesProvider.`);return e}export{r as n,i as t};
